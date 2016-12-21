@@ -1,0 +1,67 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+<link rel="stylesheet" type="text/css" href="/static/css/user.css" />
+<script type="text/javascript">
+    tmpObj = {};
+    tmpObj.keywords = "<?=$keywords?>";
+    tmpObj.tab = 0; //0文章 1小组 2用户
+    tmpObj.page = 1;
+    tmpObj.page_size = <?=$page_size?>;
+</script>
+<?php
+    if(!empty($list)):
+?>
+    <div class="con1 user-con clearfix">
+        <!--中-->
+        <div class="con-c fl">
+            <!--
+            <div class="pages-top">
+                <a href="javascript:;">首页</a> >
+                <a href="javascript:;">二级来源页</a> >
+                <span>搜索结果</span>
+            </div>
+            <h3 class="search-h3">搜索内容</h3>
+            -->
+            <div class="tab search-tab">
+                <!--<a class="on">综合</a>-->
+                <a class="on">文章</a>
+                <a>小组</a>
+                <a>用户</a>
+                <!--<a>帖子</a>-->
+            </div>
+            <div class="tab-con search-result">
+                <div class="tab2">
+                    <?php require(dirname(__FILE__).'/common/index_article_list.phtml'); ?>
+                </div>
+                <a class="feed_more" style="cursor: pointer; display: block; width: 666px; height: 38px; font-size: 14px; background: #f7f7f7; text-align: center; line-height: 38px;">查看更多</a>
+            </div>
+        </div>
+        <!--右-->
+        <div class="con-r fr">
+            <h3>24热搜榜</h3>
+            <ul>
+                <?php
+                    if($hot_search_list):
+                        $index = 0;
+                        foreach ($hot_search_list as $item):
+                            $index++;
+                ?>
+                            <li><a href="/search/result?keywords=<?=$item['keyword']?>"><b class="<?php if($index == 1){echo '';}elseif($index > 1 && $index <= 3){echo 'b-bg1';}else{echo 'b-bg3';}?>"><?=$index?></b><?=$item['keyword']?></a></li>
+                <?php
+                        endforeach;
+                    endif;
+                ?>
+            </ul>
+        </div>
+    </div>
+<?php else: ?>
+        <div class="con1 user-con clearfix">
+            <div class="on-con">
+                <img src="/static/images/img17.jpg" />
+                <p>没有发现任何内容</p>
+                <a href="/">回到首页</a>
+            </div>
+        </div>
+<?php
+    endif;
+?>
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

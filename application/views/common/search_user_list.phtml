@@ -1,0 +1,19 @@
+<?php
+    if(!empty($list)):
+        foreach($list as $item):
+?>
+            <dl class="group clearfix">
+                <dt><a href="/user/profile?uid=<?=$item['uid']?>"><img src="<?=$item['url']?>" /></a></dt>
+                <dd>
+                    <div class="txt">
+                        <a href="/user/profile?uid=<?=$item['uid']?>"><?=$item['nickname']?></a>
+                        <em>加入<?=$item['group_num']?>个小组  <?=$item['blog_num']?>篇帖子</em>
+                        <p><?=$item['summary']?></p>
+                    </div>
+                </dd>
+            </dl>
+<?php
+        endforeach;
+    endif;
+?>
+

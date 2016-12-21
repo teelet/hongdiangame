@@ -1,0 +1,139 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+<link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+<script type="text/javascript" src="/static/js/group.js"></script>
+<script type="text/javascript">
+    tmpObj = {};
+    tmpObj.isLogin = <?=$isLogin?>;
+    tmpObj.g_g_id = <?=$g_g_id?>;
+    tmpObj.feed_type = <?=$feed_type?>;
+    tmpObj.page = 1;
+    tmpObj.pageSize = <?=$page_size?>;
+</script>
+<div class="Html-con con1 clearfix">
+    <!--左-->
+    <?php require_once(dirname(__FILE__).'/common/common_left_nav.phtml') ?>
+    <!--右-->
+    <div class="con-r-997 fr">
+        <div class="con-r-997-top">
+            <img src="<?=$groupInfoAndBlogs['url']?>?imageView2/1/w/996/h/238" />
+            <div class="postion-ab clearfix">
+                <div class="img-text fl">
+                    <img src="<?=$groupInfoAndBlogs['game_icon']?>" class="fl" />
+                    <div class="txt fl">
+                        <a><?=$groupInfoAndBlogs['name']?></a>
+                        <em>成员 <?=$groupInfoAndBlogs['user_num']?>  帖子 <?=$groupInfoAndBlogs['blog_num']?></em>
+                    </div>
+                </div>
+                <?php
+                    if($is_my_group != true ):
+                ?>
+                        <a href="javascript:;" class="add-xz fr add_group_profile">加入小组</a>
+                <?php
+                    endif;
+                ?>
+            </div>
+        </div>
+        <div class="con-r-997-c clearfix">
+            <div class="con-r-997-c-l fl">
+                <div class="top clearfix">
+                    <div class="tab fl tab_group_index">
+                        <a href="javascript:;" data-type="0" class="feed_type_btn <?php if($feed_type == 0){echo 'on';}?>">全部</a>
+                        <a href="javascript:;" data-type="1" class="feed_type_btn <?php if($feed_type == 1){echo 'on';}?>">精华</a>
+                    </div>
+                    <a href="/group/postblog?g_g_id=<?=$g_g_id?>&g_g_name=<?=$groupInfoAndBlogs['name']?>" class="fanewt fr">发新贴</a>
+                </div>
+                <ul class="box1">
+                    <?php
+                        if($groupInfoAndBlogs['top_blogs']):
+                            foreach($groupInfoAndBlogs['top_blogs'] as $blog):
+                    ?>
+                                <li><em>置顶</em> <?=$blog['title']?></li>
+                    <?php
+                            endforeach;
+                        endif;
+                    ?>
+                </ul>
+                <div class="main_blogs">
+                    <a href="javascript:;" class="notice"></a>
+                    <!--渲染blog cardlist-->
+                    <?php require_once(dirname(__FILE__).'/common/blogcardlist.phtml') ?>
+                    <!--<a href="javascript:;" class="blog_showmore refresh">上次读到这里，点击刷新</a>-->
+                </div>
+
+            </div>
+            <!--中间右-->
+            <div class="con-r-997-c-r fr">
+                <div class="box2">
+                    <h3>每日签到</h3>
+                    <span>今日签到成员数<?=$groupInfoAndBlogs['signs']?>人<br />小组排名第<?=$groupInfoAndBlogs['rank']?></span>
+                    <div class="sign clearfix">
+                    <?php
+                        if($isLogin && $my_sign_info['status'] == 1 && $is_my_group == true):
+                    ?>
+                        <a href="javascript:;">已签到</a>
+                        <em>你已连续签到<?=$my_sign_info['continue_days']?>天，加油！</em>
+                    <?php
+                        else:
+                    ?>
+                        <a href="javascript:;" data-is="<?php if($is_my_group){echo 1;}else{echo 0;}?>" class="group_sign">签到</a>
+                    <?php
+                        endif;
+                    ?>
+                    </div>
+                </div>
+                <!--新加入成员-->
+                <div class="box2">
+                    <h3>新加入成员</h3>
+                    <?php
+                        if($user_list['memberRst']):
+                            foreach ($user_list['memberRst'] as $user):
+                    ?>
+                                <dl class="clearfix">
+                                    <dt><a target="_blank" href="/user/profile?uid=<?=$user['uid']?>"><img src="<?=$user['url']?>" /></a></dt>
+                                    <dd><a target="_blank" href="/user/profile?uid=<?=$user['uid']?>"><?=$user['nike_name']?></a></dd>
+                                </dl>
+                    <?php
+                            endforeach;
+                        endif;
+                    ?>
+
+                    <a href="/group/userlist?gid=<?=$groupInfoAndBlogs['gid']?>&g_g_id=<?=$groupInfoAndBlogs['g_g_id']?>&g_g_name=<?=$groupInfoAndBlogs['name']?>" class="morezu morezu2">查看所有成员</a>
+                </div>
+                <!--小组资料-->
+                <div class="box2">
+                    <h3>小组资料</h3>
+                    <p><?=$groupInfoAndBlogs['summary']?></p>
+                    <?php
+                        if($user_list['leaderRst']):
+                            foreach ($user_list['leaderRst'] as $user):
+                    ?>
+                                <em>组长：<a target="_blank" href="/user/profile?uid=<?=$user['uid']?>"><i><?=$user['nike_name']?></i></a></em>
+                    <?php
+                            endforeach;
+                        endif;
+                    ?>
+
+                    <?php
+                        if($user_list['managerRst']):
+                            foreach ($user_list['managerRst'] as $user):
+                    ?>
+                            <em>管理员：<a target="_blank" href="/user/profile?uid=<?=$user['uid']?>"><i><?=$user['nike_name']?></i></a></em>
+                    <?php
+                            endforeach;
+                        endif;
+                    ?>
+                </div>
+                <div class="box4-dl">
+                    <h3>活跃游友</h3>
+                    <?php
+                        if ($act_users){
+                            $users = $act_users;
+                            require(dirname(__FILE__).'/common/common_usercardlist.phtml');
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

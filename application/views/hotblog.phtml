@@ -1,0 +1,137 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+<link rel="stylesheet" type="text/css" href="/static/css/slider.css" />
+<script type="text/javascript" src="/static/js/group.js"></script>
+<script type="text/javascript">
+    tmpObj = {};
+    tmpObj.isLogin = <?php if($isLogin){echo 1;}else{echo 0;}?>;
+    tmpObj.page = 1;
+</script>
+<div class="Html-con con1 clearfix">
+    <!--左-->
+    <?php require_once(dirname(__FILE__).'/common/common_left_nav.phtml') ?>
+    <!--中-->
+    <div class="con-c fl">
+        <h4>选择喜欢的小组，<br />让红点游戏为你发现更多乐趣</h4>
+        <div class="box1 clearfix">
+            <?php
+                if($all_groups):
+                    foreach($all_groups as $group):
+            ?>
+                        <a href="javascript:;">
+                            <img class="item" src="<?=$group['url']?>" />
+                            <span><?=$group['name']?></span>
+                            <b class="<?php if($is_in_group[$group['g_g_id']]){echo 'del';}else{echo 'add';}?>" data-ggid="<?=$group['g_g_id']?>" data-gid="<?=$group['gid']?>" data-name="<?=$group['name']?>"></b>
+                        </a>
+            <?php
+                    endforeach;
+                endif;
+            ?>
+            <a href="/Group/getAllGroup" class="more all_group_more">
+                <img src="/static/images/morejia.png" />
+                <span>更多小组</span>
+            </a>
+        </div>
+        <div>
+            <div class="main_content">
+                <a href="javascript:;" class="notice"></a>
+                <!--渲染blog cardlist-->
+                <?php require_once(dirname(__FILE__).'/common/blogcardlist.phtml') ?>
+
+                <!--########################################################
+                <div class="on-Publish">
+                    <div class="tit clearfix">
+                        <div class="name-img fl">
+                            <img src="/static/images/img5.jpg" />
+                            <em>浪丶姿态</em>
+                            <i>10分钟前</i>
+                        </div>
+                        <a href="javascript:;" class="txt-a1 fr"><b></b>精华</a>
+                    </div>
+                    <div class="text">
+                        <h1>WoW十周年MV  魔兽老了</h1>
+                        <div class="slider-list clearfix">
+                            <div class="attrExtra1 fl">
+                                <a href="javascript:;" class="open">收起</a>
+                                <a href="javascript:;" class="put" style="display: none;" onclick="">展开</a>
+                            </div>
+                            <div class="look">查看图片</div>
+                            <div class="target fl">
+                                <a href="javascript:;" class="target-l" />向左旋转</a>
+                                <a href="javascript:;" class="target-r" />向右旋转</a>
+                            </div>
+                        </div>
+
+                        <div id="slider">
+                            <div class="slider_box" id="slider_name">
+                                <ul class="silder_con">
+                                    <li class="silder_panel"><a href="javascript:;"><img src="/static/images/img11.jpg" /></a></li>
+                                    <li class="silder_panel"><a href="javascript:;"><img src="/static/images/img13.jpg" /></a></li>
+                                    <li class="silder_panel"><a href="javascript:;"><img src="/static/images/img10.jpg" /></a></li>
+                                </ul>
+                                <ul class="silder_nav clearfix">
+                                    <li><a href="javascript:;"><img src="/static/images/img11.jpg"/></a></li>
+                                    <li><a href="javascript:;"><img src="/static/images/img13.jpg"/></a></li>
+                                    <li><a href="javascript:;"><img src="/static/images/img10.jpg"/></a></li>
+                                </ul>
+                            </div>
+                            <div class="silderBox"></div>
+                        </div>
+                        <script src="/static/js/jquery.slides.js" type="text/javascript"></script>
+                        <script>
+                            $('.open').click(function(){
+                                $(this).parents('.attrExtra1').parent('.slider-list').next('#slider').css({'height':'0',"overflow":"hidden"});
+                                $(this).next('.put').show();
+                                $(this).hide();
+                            })
+                            $('.put').click(function(){
+                                $(this).parents('.attrExtra1').parent('.slider-list').next('#slider').css({'height':'auto'});
+                                $(this).prev('.open').show();
+                                $(this).hide();
+                            })
+                        </script>
+                    </div>
+                    <div class="botton clearfix">
+                        <div class="wenzi fl">
+                            <em>仙剑传说小组</em>
+                        </div>
+                        <div class="zan fr">
+                            <a class="hf-icon">20</a>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <!--<a class="feed_more refresh">上次读到这里，点击刷新</a>-->
+            </div>
+        </div>
+    </div>
+    <!--右-->
+    <div class="con-r fr">
+        <div class="box4-dl recommend_group">
+            <?php require_once(dirname(__FILE__).'/common/recommend_group_list.phtml') ?>
+        </div>
+        <a href="javascript:;" class="morezu more_group">换一组</a>
+        <div class="box4-dl">
+            <h3>活跃游友</h3>
+            <?php
+                if ($act_users){
+                    $users = $act_users;
+                    require(dirname(__FILE__).'/common/common_usercardlist.phtml');
+                }
+            ?>
+        </div>
+    </div>
+</div>
+
+<!--全部小组-->
+<div class="tan-con tan-moregame tan_all_group">
+    <div class="tan-tit">
+        <h3>添加小组</h3>
+        <b class="close"></b>
+    </div>
+    <div class="tan-txt">
+        <div class="like-list clearfix"></div>
+    </div>
+</div>
+
+
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

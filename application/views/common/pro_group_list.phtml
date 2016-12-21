@@ -1,0 +1,16 @@
+<?php
+    if($pro_group_list):
+        foreach($pro_group_list as $group):
+?>
+            <dl>
+                <dt><img src="<?=$group['url']?>" /></dt>
+                <dd>
+                    <a href="/group?g_g_id=<?=$group['gGid']?>"><?=$group['name']?></a>
+                    <em>共签到<?=$group['signs']?>天  发帖<?=$group['blogs']?>篇</em>
+                    <p><?=$group['summary']?></p>
+                </dd>
+            </dl>
+<?php
+        endforeach;
+    endif;
+?>

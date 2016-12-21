@@ -1,0 +1,30 @@
+<div class="games">
+<?php
+if(!empty($allGame)){
+    $count = count($allGame);
+    $i = 0;
+    foreach ($allGame as $gt) {
+?>
+<div class="like-box game_<?=$gt['g_t_id']?>">
+    <h1><?=htmlspecialchars($gt['g_t_name'])?></h1>
+    <div class="like-list clearfix">
+    <?php
+    if(!empty($gt['games'])){
+        foreach ($gt['games'] as $g) {
+    ?>
+        <a href="javascript:;">
+            <img src="<?=$g['url']?>" />
+            <span><?=htmlspecialchars($g['name'])?></span>
+            <b class="<?=(1 == $g['hasAdd'] ? 'del' : 'add')?>" data-gid="<?=$g['gid']?>" data-name="<?=$g['name']?>" data-gtid="<?=$gt['g_t_id']?>"></b>
+        </a>
+    <?php
+        }
+    }
+    ?>
+    </div>
+</div>
+<?php
+    }
+}
+?>
+</div>

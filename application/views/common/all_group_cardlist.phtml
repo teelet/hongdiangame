@@ -1,0 +1,13 @@
+<?php
+    if($all_groups){
+        foreach ($all_groups as $group) {
+?>
+        <a href="javascript:;">
+            <img class="item" width="87" height="87" src="<?=$group['url']?>" />
+            <span><?=$group['name']?></span>
+            <b class="<?php if($is_in_group[$group['g_g_id']]){echo 'del';}else{echo 'add';}?>" data-ggid="<?=$group['g_g_id']?>" data-gid="<?=$group['gid']?>" data-name="<?=$group['name']?>"></b>
+        </a>
+<?php
+        }
+    }
+?>

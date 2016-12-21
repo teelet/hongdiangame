@@ -1,0 +1,75 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+<link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+<script type="text/javascript" src="/static/js/index.js"></script>
+<script>
+    tmpObj = {};
+    tmpObj.page = 1;
+    tmpObj.pageSize = <?=$page_size?>;
+    tmpObj.pageCount = <?=$page_count?>;
+    tmpObj.g_g_id = <?=$g_g_id?>;
+</script>
+<div class="Html-con con1 clearfix">
+    <div class="member-list">
+        <div class="pages-top">
+            <a href="javascript:;">小组</a> >
+            <a href="javascript:;"><?=$g_g_name?></a> >
+            <span>成员列表</span>
+        </div>
+        <!--小组长-->
+        <div class="box1">
+            <h3>小组长</h3>
+            <div class="dl-list clearfix">
+            <?php
+                if ($user_list['leaderRst']){
+                    $users = $user_list['leaderRst'];
+                    require(dirname(__FILE__) . '/common/group_usercardlist.phtml');
+                }
+            ?>
+            </div>
+        </div>
+        <!--管理员-->
+        <div class="box1">
+            <h3>管理员</h3>
+            <div class="dl-list clearfix">
+                <?php
+                    if ($user_list['managerRst']){
+                        $users = $user_list['managerRst'];
+                        require(dirname(__FILE__) . '/common/group_usercardlist.phtml');
+                    }
+                ?>
+
+            </div>
+        </div>
+        <!--小组成员-->
+        <div class="box1">
+            <h3>小组成员</h3>
+            <div class="dl-list clearfix group_userlist">
+                <?php
+                    if ($user_list['memberRst']){
+                        $users = $user_list['memberRst'];
+                        require(dirname(__FILE__) . '/common/group_usercardlist.phtml');
+                    }
+                ?>
+            </div>
+        </div>
+        <!--页数-->
+        <div class="page-botton page-botton2" style="text-align: center;">
+            <!--
+            <a href="javascript:;">上一页</a>
+            <div class="num-box">
+                <a href="javascript:;" class="on">1</a>
+                <a href="javascript:;">2</a>
+                <a href="javascript:;">3</a>
+                <a href="javascript:;">4</a>
+                <a href="javascript:;">5</a>
+                <a href="javascript:;">…</a>
+                <a href="javascript:;">27</a>
+            </div>
+            <a><input type="tetx" class="num" />/27页</a>
+            <a href="javascript:;">下一页</a>
+            -->
+            <a href="javascript:;" class="user_showmore" style="float: none;">查看更多</a>
+        </div>
+    </div>
+</div>
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

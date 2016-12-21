@@ -1,0 +1,25 @@
+<h3>推荐小组</h3>
+<?php
+    if ($recommend_groups):
+        foreach ($recommend_groups as $group):
+?>
+            <dl class="clearfix">
+                <dt class="wbig fl"><a href="/group?g_g_id=<?=$group['ggid']?>"><img src="<?=$group['url']?>" /></a></dt>
+                <dd class="wsmall fl">
+                    <a href="/group?g_g_id=<?=$group['ggid']?>"><?=$group['name']?></a>
+                    <em><?=$group['member']?>万成员  <?=$group['blog']?>帖子</em>
+                    <?php
+                    if($is_in_group[$group['ggid']] == 1):
+                        ?>
+                        <a href="javascript:;" data-is="1" data-ggid="<?=$group['ggid']?>" class="add yadd add_group">√已加入</a>
+                    <?php else: ?>
+                        <a href="javascript:;" data-is="0" data-ggid="<?=$group['ggid']?>" class="add add_group">加入小组</a>
+                        <?php
+                    endif;
+                    ?>
+                </dd>
+            </dl>
+<?php
+        endforeach;
+    endif;
+?>

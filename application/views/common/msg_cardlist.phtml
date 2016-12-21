@@ -1,0 +1,112 @@
+<?php
+function str2html($str){
+    $str = str_replace('&lt;', '<', $str);
+    $str = str_replace('&gt;', '>', $str);
+    return $str;
+}
+?>
+<?php
+    if($messages):
+        foreach($messages as $message):
+?>
+            <dl class="pl-hf clearfix">
+                <dt class="fl">
+                    <?php
+                        if($feed_type == 0): //系统通知
+                    ?>
+                            <a href="/"><img src="/static/images/img15.jpg" /></a>
+                    <?php else: ?>
+                            <a href="/user/profile?uid=<?=$message['msg']['uid']?>"><img src="<?=$message['msg']['head_url']?>" /></a>
+                    <?php
+                        endif;
+                    ?>
+                </dt>
+                <dd class="fl">
+                    <div class="pl-name">
+                        <?php
+                            if($feed_type == 0): //系统通知
+                        ?>
+                                <a href="/">系统通知</a>
+                        <?php else: ?>
+                                <a href="/user/profile?uid=<?=$message['msg']['uid']?>"><?=$message['msg']['nickname']?></a>
+                        <?php
+                            endif;
+                        ?>
+
+                        <span><?=date('Y-m-d H:i:s', $message['stime'])?></span>
+                        <?php
+                            if($feed_type == 2){
+                                echo '<div class="louceng fr"></div>'; //楼层
+                            }
+                        ?>
+                    </div>
+
+                    <?php
+                        switch ($feed_type):
+                            case 0 : //系统通知
+                    ?>
+                            <p><?=$message['msg']['content']?></p>
+                    <?php
+                                break;
+                            case 1 : // 评论的回复
+                    ?>
+                            <p><?=str2html($message['msg']['content'])?></p>
+                            <div class="pl-con"><?=$message['msg']['title']?></div>
+                    <?php
+                                break;
+                            case 2 : // 帖子的回帖
+                    ?>
+                            <p><?=str2html($message['msg']['content'])?></p>
+                            <div class="pl-con"><?=$message['msg']['title']?></div>
+                    <?php
+                                break;
+                            case 3 : // 回帖的回复
+                    ?>
+                            <p><?=str2html($message['msg']['content'])?></p>
+                            <div class="pl-con"><?=$message['msg']['title']?></div>
+                    <?php
+                                break;
+                            case 4 : // 评论的赞
+                    ?>
+                            <span class="zan-pl"><?=str2html($message['msg']['content'])?></span>
+                            <div class="pl-con"><?=$message['msg']['title']?></div>
+                    <?php
+                                break;
+                            case 5 : // 回帖的赞
+                    ?>
+                            <span class="zan-pl"><?=str2html($message['msg']['content'])?></span>
+                            <div class="pl-con"><?=$message['msg']['title']?></div>
+                    <?php
+                            endswitch;
+                    ?>
+
+                    <div class="zan clearfix">
+                        <a href="javascript:;" class="hf-icon fl">回复</a>
+                        <a data-id="<?=$message['msgid']?>" class="message_del fr">删除</a>
+                    </div>
+                    <form class="hf-form hf-form3">
+                        <textarea name="" cols="" rows="" id="content1_<?=$message['msgid']?>" placeholder="说点神马……(5~1000字)"></textarea>
+                        <div class="fb-btn clearfix">
+                            <input type="button" data-id="<?=$message['msgid']?>" value="发表" class="btn msg_btn" />
+                            <b id="face1_<?=$message['msgid']?>"></b>
+                        </div>
+                    </form>
+                    <script type="text/javascript">
+                        //实例化表情插件
+                        $(function(){
+                            var face1 = '#face1_' + <?=$message['msgid']?>;
+                            var content1 = 'content1_' + <?=$message['msgid']?>;
+                            $(face1).qqFace({
+                                id : 'facebox2', //表情盒子的ID
+                                assign: content1, //给那个控件赋值
+                                path:'/static/face/',	//表情存放的路径
+                                tip: '/表情'
+                            });
+                        });
+                    </script>
+                </dd>
+            </dl>
+<?php
+        endforeach;
+    endif;
+?>

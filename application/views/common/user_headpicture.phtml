@@ -1,0 +1,152 @@
+<div class="con-c fl">
+    <div class="xiugai-tit clearfix">
+        <h3>修改头像</h3>
+    </div>
+    <div class="revised-tx">
+        <p>仅支持JPG、PNG格式的图片，小于5M</p>
+        <div class="toux-img">
+            <div class="dq-tx newHead">
+                <span>当前头像</span>
+                <!--<em><img src="/static/images/img5.jpg" /></em> -->
+                <em><img src="<?=$url?>"/><b class="delete"></b></em>
+            </div>
+            <div class="dq-tx">
+                <span>上传头像</span>
+                <a href="javascript:;" class="a asas" id="filename" >+</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/qiniu/plupload.full.min.js"></script>
+<script type="text/javascript" src="/static/js/qiniu/qiniu.min.js"></script>
+<script type="text/javascript">
+    $('.newHead em b.delete').click(function(){ console.log(this);
+        $(this).parents('em').remove();
+        $('.newHead').append('<em><img src="/static/images/img5.jpg"/><b class="delete"></b></em>');
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        pic_num = 0;
+        max_num = 1;
+        pathArr = [];
+        obj = null;
+        infos = {};
+        node = {
+            runtimes: 'html5,flash,html4',      // 上传模式，依次退化
+            browse_button: 'filename',//'select_img',         // 上传选择的点选按钮，必需 只能绑定id不能绑定class
+            // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
+            // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
+            // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
+            uptoken : 'null', //在FilesAdded 方法中有赋值
+            //uptoken_url: '/uptoken',         // Ajax请求uptoken的Url，强烈建议设置（服务端提供）
+            //uptoken_func: function(file){    // 在需要获取uptoken时，该方法会被调用  (****但是此方法在页面加载的时候就触发)
+            //    return token;
+            //},
+            get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的uptoken
+            unique_names: false,              // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+            save_key: false,                  // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+            domain: 'http://pic.hongdiangame.com/',     // bucket域名，下载资源时用到，必需
+            max_file_size: '500mb',             // 最大文件体积限制
+            max_retries: 1,                     // 上传失败最大重试次数
+            dragdrop: true,                     // 开启可拖曳上传
+            chunk_size: '4mb',                  // 分块上传时，每块的体积
+            auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+            //multi_selection: false,              //设置每次只能选择一个文件
+            init: {
+                'FilesAdded': function(up, files) {
+                    pic_num = 0;
+                    plupload.each(files, function(file) {
+                        // 文件添加进队列后，处理相关的事情
+                        if(pic_num < max_num){
+                            pic_num++;  //统计有多少张图片 但不能超过max_num
+                        }else{
+                            up.removeFile(file); //图片超出限制就废弃
+                        }
+                    });
+                    //在此处从后台获取token (****为什么不在uptoken_func中获取,因为uptoken_func在页面加载后就执行了,不能获取图片张数)
+                    $.ajax({
+                        url  : '/ajax_imgtoken/token',
+                        type : 'GET',
+                        dataType : 'json',
+                        data : {'num':pic_num},
+                        async : false, //设为同步方式  为了等待后台数据返回  完成赋值操作
+                        success : function (dt) {
+                            if(dt.statusCode == 0){
+                                //node.uptoken = dt.token.token; //经读源码得知, 这里直接修改Qiniu.token才有效 (Qiniu.token是在初始化的时候获取node.uptoken的,后期修改node.uptoken以无效)
+                                Qiniu.token = dt.token.token;
+                                pathArr = dt.token.paths;
+                            }
+                        }
+                    });
+
+                },
+                'BeforeUpload': function(up, file) {
+                    // 每个文件上传前，处理相关的事情
+                },
+                'UploadProgress': function(up, file) {
+                    // 每个文件上传时，处理相关的事情
+                },
+                'FileUploaded': function(up, file, info) {
+                    // 每个文件上传成功后，处理相关的事情
+                    // 其中info是文件上传成功后，服务端返回的json，形式如：
+                    // {
+                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                    //    "key": "gogopher.jpg"
+                    //  }
+                    // 查看简单反馈
+                    var domain = up.getOption('domain');
+                    var res = JSON.parse(info);
+                    var sourceLink = domain + res.key + '?imageView2/1/w/100/h/100'; //获取上传成功后的文件的Url
+                    infos[res.hash] = info;
+                    $('.newHead em').remove();
+                    $('.newHead').append('<em><img src="'+ sourceLink +'"  data-hash="'+ res.hash +'" /><b class="delete"></b></em>');
+
+                    var imgStr = ''; //图片
+                    if($('.newHead em').size() > 0){  //有上传额图片
+                        imgStr = '/'+res.key;
+                    }
+
+                    // 获取用户的uid
+                    var uid = cookie.get('uid');
+
+                    $.ajax({
+                        url:'/ajax_user/changeUserFace',
+                        type:'POST',
+                        dataType:'json',
+                        data:{'uid':uid,'img':imgStr},
+                        success:function(re){
+                            if(re.statusCode == 0){
+                                //popup(re.message);
+                                window.location.href = window.location.href;
+                            }else{
+                                popup('网络故障,请重试~');
+                            }
+                        },
+                        error:function(){
+                            popup('网络故障,请重试~');
+                        }
+                    });
+
+                },
+                'Error': function(up, err, errTip) {
+                    //上传出错时，处理相关的事情
+                    alert(JSON.stringify(err));
+                },
+                'UploadComplete': function() {
+                    //队列文件处理完毕后，处理相关的事情
+                },
+                'Key': function(up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在unique_names: false，save_key: false时才生效
+                    var ext = file.name.split('.').pop();
+                    var name = pathArr.shift();
+                    var key = name + '.' + ext;
+                    return key
+                }
+            }
+        };
+        var uploader = Qiniu.uploader(node);
+    });
+</script>
+

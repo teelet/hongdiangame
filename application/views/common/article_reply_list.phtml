@@ -1,0 +1,30 @@
+<?php
+if(is_array($reply) && !empty($reply)){
+    foreach ($reply as $r) {
+?>
+        <dd class="fr">
+            <div class="pl-name clearfix">
+                <div class="name fl">
+                    <a href="/user/index?uid=<?=$r['uid']?>"><?=$userinfo[$r['uid']]['nickname']?></a>
+                    <span><?=date('Y-m-d H:i:s',$r['ctime'])?></span>
+                </div>
+                <div class="zan fr">
+                    <a class="zan-icon" data-id="<?=$r['id']?>"><?=((int)$r['favor_num'] > 0 ? $r['favor_num'] : '赞')?></a>
+                    <!--<a class="hf-icon" data-id="<?=$r['id']?>"><?=((int)$r['reply_num'] > 0 ? $r['reply_num'] : '回复')?></a>-->
+                </div>
+                <div class="clearfix"></div>
+                <form id="f_reply_<?=$r['id']?>" class="hf-form hf-formhide">
+                    <input name="pid" type="hidden" value="<?=$r['id']?>" />
+                    <textarea name="content" cols="" rows="" placeholder="说点神马……"></textarea>
+                    <div class="fb-btn clearfix putyskn" style="position:relative;">
+                        <input type="button" value="发表" class="btn reply" />
+                        <!-- <b class="faceBtn1"></b> -->
+                    </div>
+                </form> 
+            </div>
+            <p><?=nl2br(htmlspecialchars($r['content']))?></p>
+        </dd>
+<?php
+    }
+}
+?>

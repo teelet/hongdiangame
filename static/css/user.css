@@ -1,0 +1,71 @@
+.user-banner{ width:100%; height:326px; background:url(../images/user-banner.jpg) center center no-repeat;}
+.user-banner .user-img{padding-top:45px;}
+.user-banner .user-img img{ width:142px; height:142px; border-radius:50%; border:solid 1px #fff; margin:auto; display:block; }
+.user-banner span{ display:block; margin-top:20px; color:#000; font-size:18px; text-align:center;}
+.user-banner p{ text-align:center; margin-top:8px; font-size:14px;}
+.user-con{ width:990px; margin:auto;}
+.user-con .con-c{ margin-left:0;}
+.user-con .con-c .tab{ height:40px; border-bottom:solid 1px #f7f7f7; text-align:center;}
+.user-con .con-c .tab a{ display:inline-block; height:38px; font-size:16px; margin:0 22px; cursor:pointer;}
+.user-con .con-c .tab a.on{ color:#000; border-bottom:solid 3px #ff4949;}
+.pl-hf{ margin-top:15px;}
+
+.tab1{ width:666px; overflow:hidden; display:none;}
+.tab1 .dl-list{ width:690px; overflow:hidden;}
+.tab1 .dl-list dl{ margin-top:18px; border:solid 1px #f7f7f7; width:327px; min-height:85px; padding:15px 0; border-radius:5px; float:left; margin-right:15px;}
+.tab1 .dl-list dl dt{ width:58px; float:left; margin-left:18px;}
+.tab1 .dl-list dl dt img{ width:58px; height:58px; }
+.tab1 .dl-list dl dd{ float:left; width:210px; margin-left:20px;}
+.tab1 .dl-list dl dd a{ font-size:14px; color:#000; display:block;}
+.tab1 .dl-list dl dd em{ display:block; margin-top:5px; font-size:14px;}
+.tab1 .dl-list dl dd p{ color:#999; line-height:22px; font-size:14px;}
+
+.xiugai-tit{ height:38px; border-bottom:solid 1px #f7f7f7;}
+.xiugai-tit h3{ font-size:16px; color:#000; float:left; line-height:30px;}
+.xiugai-tit a{ float:right; font-size:14px; color:#ff4d4d; line-height:38px;}
+.table{ margin-top:15px;}
+.table tr td{ padding:10px 0; font-size:14px;}
+.table tr td span{ color:#000;}
+.revised-tx{ margin-top:15px;}
+.revised-tx p{ font-size:14px;}
+.revised-tx .toux-img .dq-tx{ margin-right:54px; margin-top:30px; float:left;}
+.revised-tx .toux-img span{ display:block; font-size:14px; color:#000; margin-bottom:10px;}
+.revised-tx .toux-img img{ width:180px; height:180px;}
+input#infile{ border:none;visibility: hidden;display: none;}
+.dq-tx a.a{ display:block; width:180px; height:180px;background:#eeeff2; text-align:center; line-height:180px; font-size:58px; color:#ccc;}
+
+.table tr td.td{ line-height:40px;}
+.table tr td .txt{ width:270px; height:40px; border:solid 1px #dfdfdf; border-radius:6px; text-indent:10px; color:#000; float:left;}
+.table tr td a{ display:block; width:100px; height:40px;border-radius:6px; border:solid 1px #777; color:#777; float:left; margin-left:20px; text-align:center; line-height:40px; cursor:pointer;}
+.table tr td .error{ color:#ff4d4d; margin-top:8px;}
+.table tr td .btn{ height:40px; width:60px;border:solid 1px #777; border-radius:6px; color:#777; background:#fff; font-size:14px; color:#777; cursor:pointer;}
+.table tr td .bs{ border:solid 1px #ff4d4d; color:#ff4d4d; margin-right:15px;}
+.search-h3{ font-size:22px; color:#000; margin:25px 0;}
+dl.group{ padding:20px 0; border-bottom:solid 1px #f7f7f7;}
+dl.group dt{ width:98px; float:left;}
+dl.group dt img{ width:98px; height:98px;}
+dl.group dd{ float:left; width:544px; margin-left:20px;}
+dl.group dd .txt{ float:left; width:442px;}
+dl.group dd .txt a{ font-size:18px; color:#000; display:block;}
+dl.group dd .txt em{ font-size:14px; margin-top:8px; display:block;}
+dl.group dd .txt p{ color:#999; font-size:14px; line-height:22px; margin-top:4px;}
+dl.group dd a.add-group{ width:87px; height:30px; text-align:center; line-height:30px; display:block; border:solid 1px #ff4747; color:#ff4747; float:right; font-size:14px; margin-top:30px; border-radius:3px;}
+.on-con{ padding-top:200px;}
+.on-con img{ display:block; margin:auto;}
+.on-con p{ text-align:center; font-size:16px; margin-top:12px;}
+.on-con a{ display:block; text-align:center; margin-top:8px; color:#ff5252; font-size:14px;}
+
+/*我的资料 修改*/
+.table-a tr td .txt{ width:588px; border:solid 1px #eeeff2; border-radius:5px; height:45px; color:#000; display:block; float:none;}
+.table-a tr td textarea{ width:572px; height:120px;border:solid 1px #eeeff2; border-radius:5px;color:#000; padding:8px; line-height:22px;}
+.table-a tr td p.error em{ float:right;}
+.table-a tr td .xb span{ display:inline-block; color:#000; margin-right:40px; cursor:pointer; line-height:18px;}
+.table-a tr td .xb span b{ display:block; width:16px; height:16px; border:solid 1px #ccc; border-radius:50%; float:left; margin-right:5px;}
+.table-a tr td .xb span.cur b{width:8px; height:8px; border:solid 5px #ff4d4d; border-radius:50%;}
+.table-a tr td .tablebox{ float:left; position:relative; margin-right:40px;}
+.table-a tr td .tablebox .tablebox1{ width:125px; height: 42px; line-height: 42px; border: solid 1px #ccc; border-radius: 5px; text-indent:12px; color: #000;font-size:14px;background:url(../images/jiantou.jpg) 90% center no-repeat;cursor:pointer; float:left;}
+.table-a tr td .tablebox .tablebox2{ position:absolute;border:1px solid #ccc; border-radius:5px; background-color:#fff; left:0px;width:125px; top:42px;display:none; z-index:66;}
+.table-a tr td .tablebox .tablebox2 li{color:#000;font-size:14px; text-indent:12px; line-height:30px; cursor:pointer;}
+.table-a tr td .tablebox em{ color:#000; line-height:42px; margin-left:6px;}
+.table-a tr td .tablebox .tablebox1-w{ width:165px;}
+.table-a tr td .tablebox .tablebox2-w{ width:165px;}

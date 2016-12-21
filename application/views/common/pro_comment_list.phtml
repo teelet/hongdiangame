@@ -1,0 +1,51 @@
+<?php
+function str2html($str){
+    $str = str_replace('&lt;', '<', $str);
+    $str = str_replace('&gt;', '>', $str);
+    return $str;
+}
+?>
+<?php
+    if($pro_comment_list):
+        foreach($pro_comment_list as $comment):
+?>
+            <dl class="pl-hf clearfix">
+                <dt class="fl"><img src="<?=$user_info['url']?>" /></dt>
+                <dd class="fl">
+                    <div class="pl-name clearfix">
+                        <div class="name fl">
+                            <a href="javascript:;"><?=$user_info['nickname']?></a>
+                            <span><?=date('Y-m-d H:i:s', $comment['ctime'])?></span>
+                        </div>
+                    </div>
+                    <p><?=str2html($comment['content'])?></p>
+                    <div class="pl-con"><?=$comment['title']?></div>
+                    <div class="zan clearfix">
+                        <a href="javascript:;" data-id="<?=$comment['id']?>" class="hf-icon fl">回复</a>
+                        <a class="zan-icon fl action_zan" data-flag="0">点赞</a>
+                    </div>
+                    <form class="hf-form hf-form3">
+                        <textarea name="" cols="" rows="" id="content_<?=$comment['comment_Type']?>_<?=$comment['id']?>" placeholder="说点神马……(5~1000个字或字符)"></textarea>
+                        <input type="button" value="发表" class="btn comment_btn" data-type="<?=$comment['comment_Type']?>" data-id="<?=$comment['id']?>" />
+                        <b id="face_<?=$comment['comment_Type']?>_<?=$comment['id']?>"></b>
+                    </form>
+                    <!--添加qqface-->
+                    <script type="text/javascript">
+                        //实例化表情插件
+                        $(function(){
+                            var face2 = '#face_' + <?=$comment['comment_Type']?> + '_' + <?=$comment['id']?>;
+                            var content2 = 'content_' + <?=$comment['comment_Type']?> + '_' + <?=$comment['id']?>;
+                            $(face2).qqFace({
+                                id : 'facebox1', //表情盒子的ID
+                                assign: content2, //给那个控件赋值
+                                path:'/static/face/',	//表情存放的路径
+                                tip: '/表情'
+                            });
+                        });
+                    </script>
+                </dd>
+            </dl>
+<?php
+        endforeach;
+    endif;
+?>

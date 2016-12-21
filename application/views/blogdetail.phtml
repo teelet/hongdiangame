@@ -1,0 +1,261 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+<script type="text/javascript" src="/static/js/group.js"></script>
+<script type="text/javascript" src="/static/js/jquery.mise.js"></script>
+<script type="text/javascript" src="/static/js/my.qqFace.js"></script>
+<script type="text/javascript">
+    tmpObj = {};
+    tmpObj.floor = <?=$floor?>; //楼层
+    tmpObj.page = 1;
+    tmpObj.pageSize = <?=$page_size?>;
+    tmpObj.bid = <?=$blog['bid']?>;
+    tmpObj.isLogin = <?=$isLogin?>;
+
+    //实例化表情插件
+    $(function(){
+        $('#face3').qqFace({
+            id : 'facebox1', //表情盒子的ID
+            assign:'content3', //给那个控件赋值
+            path:'/static/face/',	//表情存放的路径
+            tip: '/表情'
+        });
+    });
+
+</script>
+<div class="Html-con con1 clearfix">
+    <!--左-->
+    <div class="con-l-878 fl">
+        <div class="pages-top">
+            <a href="javascript:;">小组</a> >
+            <a href="javascript:;"><?=$g_g_name?></a> >
+            <span>帖子</span>
+        </div>
+        <div class="user-mc">
+            <dl class="clearfix">
+                <dt class="fl">
+                <div class="user-img"><a href="/user/profile?uid=<?=$blog['userinfo']['uid']?>"><img src="<?=$blog['userinfo']['url']?>" /></a></div>
+                <div class="user-txt">
+                    <a href="/user/profile?uid=<?=$blog['userinfo']['uid']?>"><?=$blog['userinfo']['nickname']?></a>
+                    <span><?=date('Y年m月d日 H:i:s')?></span>
+                </div>
+                </dt>
+                <dd class="fr">
+                    <!--
+                    <em>置顶</em>
+                    <em>加精</em>
+                    -->
+                    <?php
+                        if($blog['uid'] == Judge::getUid()):
+                    ?>
+                            <em style="cursor:pointer;" class="blog_remove" data-uid="<?=Judge::getUid()?>">删除</em>
+                    <?php
+                        endif;
+                    ?>
+                </dd>
+            </dl>
+        </div>
+        <div class="article">
+            <div class="article-tit">
+                <h1><?=$blog['title']?><?php if($blog['type'] == 1){echo '<img src="/static/images/tu1.jpg" />';}?></h1>
+            </div>
+            <div class="article-txt article-txt2">
+                <?=urldecode($blog['content'])?>
+            </div>
+            <div id="share" class="share clearfix" data-url="" data-title="<?=$blog['title']?>" data-desc="<?=$blog['summary']?>" data-image="">
+                <span>分享到</span>
+                <a href="javascript:;" class="icon5 qq"></a>
+                <a href="javascript:;" class="icon6 wb"></a>
+                <a href="javascript:;" class="icon7 wx"></a>
+                <a href="javascript:;" class="icon8 qqzone"></a>
+            </div>
+            <!--评论-->
+            <div class="all-comment">
+                <div class="huitie clearfix">
+                    <h3 class="fl"><?=$blog['reply_num']?>条回帖</h3>
+                    <div class="huitie-r fr">
+                        <!--
+                        <a href="javascript:;">只看楼主</a>
+                        <a href="javascript:;">顺序查看↓</a>
+                        -->
+                    </div>
+                </div>
+                <div class="blog_comment_list">
+                <?php require_once(dirname(__FILE__).'/common/blog_comment_list.phtml') ?>
+                </div>
+                <!--页数
+                <div class="page-botton clearfix">
+                    <a href="javascript:;">返回列表</a>
+                    <div class="num-box">
+                        <a href="javascript:;" class="on">1</a>
+                        <a href="javascript:;">2</a>
+                        <a href="javascript:;">3</a>
+                        <a href="javascript:;">4</a>
+                        <a href="javascript:;">5</a>
+                        <a href="javascript:;">…</a>
+                        <a href="javascript:;">27</a>
+                    </div>
+                    <a><input type="tetx" class="num" />/27页</a>
+                    <a href="javascript:;">下一页</a>
+                    <a>到第<input type="" class="num" />楼</a>
+                </div>-->
+                <?php
+                if(count($comment_list) > 0):
+                    ?>
+                    <div class="page-botton" style="text-align: center;">
+                        <a href="javascript:;" class="blog_comment_showmore" style="float: none;">查看更多</a>
+                    </div>
+                    <?php
+                endif;
+                ?>
+                <form class="hf-form hf-form2">
+                    <textarea style="height: 100px;" name="" cols="" rows="" placeholder="说点神马……(5~1000个字或字符)" id="content3"></textarea>
+                    <div class="cpic tpl_morepic clearfix">
+                        <!--
+                        <em><img src="/static/images/img1.jpg" /><b class="close"></b></em>
+                        <em><img src="/static/images/img5.jpg" /><b class="close"></b></em>
+                        <em><img src="/static/images/img5.jpg" /><b class="close"></b></em>
+                        -->
+                    </div>
+                    <input type="button" value="发表" class="btn post_blog_comment" />
+                    <b id="face3" style="cursor: pointer;"></b>
+                    <b class="tu3" id="select_img" style="cursor: pointer;"></b>
+                </form>
+            </div>
+        </div>
+        <div style="height: 100px;"></div>
+    </div>
+    <!--右-->
+    <div class="con-r fr">
+        <div class="box4-dl">
+            <h3>相关阅读</h3>
+            <?php
+                if ($related_blogs):
+                    foreach ($related_blogs as $blog):
+            ?>
+                        <dl class="clearfix">
+                            <dt class="fl"><img src="<?=$blog['image']?>" /></dt>
+                            <dd class="fl"><a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$g_g_name?>"><?=$blog['title']?></a></dd>
+                        </dl>
+            <?php
+                    endforeach;
+                endif;
+            ?>
+        </div>
+        <div class="box4">
+            <!--
+            <h3>热门视频</h3>
+            <dl>
+                <dt><img src="/static/images/img8.jpg" /></dt>
+                <dd>视频内容文章标题文章标题文章标题文章标题文章标题文章标题文章标题</dd>
+            </dl>
+            <dl>
+                <dt><img src="/static/images/img8.jpg" /></dt>
+                <dd>视频内容文章标题文章标题文章标题文章标题文章标题</dd>
+            </dl>
+            -->
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/qiniu/plupload.full.min.js"></script>
+<script type="text/javascript" src="/static/js/qiniu/qiniu.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pic_num = 0;
+        max_num = 9;
+        pathArr = [];
+        obj = null;
+        infos = {};
+        node = {
+            runtimes: 'html5,flash,html4',      // 上传模式，依次退化
+            browse_button: 'select_img',         // 上传选择的点选按钮，必需
+            // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
+            // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
+            // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
+            uptoken : 'null', //在FilesAdded 方法中有赋值
+            //uptoken_url: '/uptoken',         // Ajax请求uptoken的Url，强烈建议设置（服务端提供）
+            //uptoken_func: function(file){    // 在需要获取uptoken时，该方法会被调用  (****但是此方法在页面加载的时候就触发)
+            //    return token;
+            //},
+            get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的uptoken
+            unique_names: false,              // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+            save_key: false,                  // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+            domain: 'http://pic.hongdiangame.com/',     // bucket域名，下载资源时用到，必需
+            max_file_size: '100mb',             // 最大文件体积限制
+            max_retries: 1,                     // 上传失败最大重试次数
+            dragdrop: true,                     // 开启可拖曳上传
+            chunk_size: '4mb',                  // 分块上传时，每块的体积
+            auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+            //multi_selection: false,              //设置每次只能选择一个文件
+            init: {
+                'FilesAdded': function(up, files) {
+                    pic_num = 0;
+                    plupload.each(files, function(file) {
+                        // 文件添加进队列后，处理相关的事情
+                        if(pic_num < max_num){
+                            pic_num++;  //统计有多少张图片 但不能超过max_num
+                        }else{
+                            up.removeFile(file); //图片超出限制就废弃
+                        }
+                    });
+                    //在此处从后台获取token (****为什么不在uptoken_func中获取,因为uptoken_func在页面加载后就执行了,不能获取图片张数)
+                    $.ajax({
+                        url  : '/ajax_imgtoken/token',
+                        type : 'GET',
+                        dataType : 'json',
+                        data : {'num':pic_num},
+                        async : false, //设为同步方式  为了等待后台数据返回  完成赋值操作
+                        success : function (dt) {
+                            if(dt.statusCode == 0){
+                                //node.uptoken = dt.token.token; //经读源码得知, 这里直接修改Qiniu.token才有效 (Qiniu.token是在初始化的时候获取node.uptoken的,后期修改node.uptoken以无效)
+                                Qiniu.token = dt.token.token;
+                                pathArr = dt.token.paths;
+                            }
+                        }
+                    });
+
+                },
+                'BeforeUpload': function(up, file) {
+                    // 每个文件上传前，处理相关的事情
+                },
+                'UploadProgress': function(up, file) {
+                    // 每个文件上传时，处理相关的事情
+                },
+                'FileUploaded': function(up, file, info) {
+                    // 每个文件上传成功后，处理相关的事情
+                    // 其中info是文件上传成功后，服务端返回的json，形式如：
+                    // {
+                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                    //    "key": "gogopher.jpg"
+                    //  }
+                    // 查看简单反馈
+                    var domain = up.getOption('domain');
+                    var res = JSON.parse(info);
+                    var sourceLink = domain + res.key + '?imageView2/1/w/100/h/100'; //获取上传成功后的文件的Url
+                    infos[res.hash] = info;
+                    $('.cpic').append('<em><img src="'+ sourceLink +'"  data-hash="'+ res.hash +'" /><b class="close"></b></em>');
+
+                },
+                'Error': function(up, err, errTip) {
+                    //上传出错时，处理相关的事情
+                    alert(JSON.stringify(err));
+                },
+                'UploadComplete': function() {
+                    //队列文件处理完毕后，处理相关的事情
+                },
+                'Key': function(up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在unique_names: false，save_key: false时才生效
+                    var ext = file.name.split('.').pop();
+                    var name = pathArr.shift();
+                    var key = name + '.' + ext;
+                    return key
+                }
+            }
+        };
+
+        var uploader = Qiniu.uploader(node);
+
+        //初始化分享
+        share.init('share');
+    });
+</script>
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

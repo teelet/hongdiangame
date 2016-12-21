@@ -1,0 +1,16 @@
+<?php
+    if ($users):
+        foreach ($users as $user):
+?>
+        <dl>
+            <dt><a target="_blank" href="/user/profile?uid=<?=$user['uid']?>"><img src="<?=$user['url']?>" /></a></dt>
+            <dd>
+                <a target="_blank" href="/user/profile?uid=<?=$user['uid']?>"><?=$user['nike_name']?></a>
+                <em>共签到 <?=$user['sign']?>天  发帖 <?=$user['blog']?>篇</em>
+                <em>已加入小组 <?=$user['day']?>天</em>
+            </dd>
+        </dl>
+<?php
+        endforeach;
+    endif;
+?>

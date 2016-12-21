@@ -1,0 +1,74 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+<link rel="stylesheet" type="text/css" href="/static/css/user.css" />
+<script type="text/javascript" src="/static/js/group.js"></script>
+<script type="text/javascript" src="/static/js/jquery.mise.js"></script>
+<script type="text/javascript" src="/static/js/my.qqFace.js"></script>
+<script type="text/javascript">
+    tmpObj = {};
+    tmpObj.isLogin = <?=$isLogin?>;
+    tmpObj.index = 0;
+    tmpObj.page = 1;
+    tmpObj.pageCount = <?=$page_count?>;
+    tmpObj.pageSize = <?=$page_size?>;
+    tmpObj.vid = <?=$vid?>;
+</script>
+<div class="user-banner tpl_ad">
+    <div class="Html-con">
+        <div class="user-img"><img src="<?=$user_info['url']?>" /></div>
+        <span><?=$user_info['nickname']?></span>
+        <p><?=$user_info['summary']?></p>
+    </div>
+</div>
+<div class="con1 user-con clearfix">
+    <!--中-->
+    <div class="con-c fl">
+        <div class="tab tab_profile">
+            <a class="on">评论</a>
+            <a>小组</a>
+            <a>帖子</a>
+        </div>
+        <!--切换内容-->
+        <div class="tab-con">
+            <!--评论-->
+            <div class="tab1 pro_comment_list" style="display:block;">
+                <div class="pl-box user_comment_list">
+                    <?php require_once(dirname(__FILE__).'/common/pro_comment_list.phtml') ?>
+                </div>
+            </div>
+            <!--小组-->
+            <div class="tab1">
+                <div class="dl-list clearfix">
+                </div>
+            </div>
+            <!--帖子-->
+            <div class="tab1">
+                <div></div>
+            </div>
+
+            <div class="page-botton" style="text-align: center;">
+                <a href="javascript:;" class="profile_show_more" style="float: none;">查看更多</a>
+            </div>
+        </div>
+    </div>
+    <!--右-->
+    <div class="con-r fr">
+        <div class="box4-dl recommend_group">
+            <?php require_once(dirname(__FILE__).'/common/recommend_group_list.phtml') ?>
+        </div>
+        <a href="javascript:;" class="morezu more_group">换一组</a>
+        <!--
+        <div class="box4 tpl_video">
+            <h3>热门视频</h3>
+            <dl>
+                <dt><img src="/static/images/img8.jpg" /></dt>
+                <dd>视频内容文章标题文章标题文章标题文章标题文章标题文章标题文章标题</dd>
+            </dl>
+            <dl>
+                <dt><img src="/static/images/img8.jpg" /></dt>
+                <dd>视频内容文章标题文章标题文章标题文章标题文章标题</dd>
+            </dl>
+        </div>
+        -->
+    </div>
+</div>
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

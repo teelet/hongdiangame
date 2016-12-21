@@ -1,0 +1,28 @@
+/*slider*/
+#slider{width:100%;padding-top:8px;}
+.slider_box{width:660px; margin:0 auto;height: 455px;overflow: hidden;position: relative;}
+.silder_con{height:455px;overflow: hidden;position: absolute;}
+.silder_panel{width:660px;height:455px;overflow: hidden;position: relative; float:left;}
+.silder_panel img{width:660px;height: 372px;display: block;overflow: hidden;}
+.silder_nav{width:660px;height:65px;margin: 0 auto;bottom:8px;position: absolute;overflow: hidden;}
+.silder_nav li{float: left;padding:0px;border:1px solid #fff; margin:2px;}
+.silder_nav li.current{border:2px solid #ff6868;}
+.silder_nav li{ border:solid 2px #fff; margin-right:4px;}
+.silder_nav li,.silder_nav img{display: block;width:59px;height:59px;overflow: hidden;}
+.slider_box a.prev,.slider_box a.next{display: block;width:29px;height:56px;overflow:hidden;text-indent: -999px;position: absolute;cursor: pointer;margin: 160px 0 0 0;background: url(../images/icon.png) no-repeat;}	
+.slider_box a.prev{left:0;background-position: left -283px; left:10px;}
+.slider_box a.next{right:0;background-position: -31px -283px; right:10px;}
+.silderBox{height:8px; line-height:8px;}
+
+
+.slider-list{ margin-top:10px; padding-bottom:10px;}
+.slider-list .attrExtra1{}
+.slider-list .attrExtra1 a{ font-size:14px; padding-left:24px;}
+.slider-list .attrExtra1 a.open{ background:url(../images/shouqi.jpg) left center no-repeat;}
+.slider-list .attrExtra1 a.put{ background:url(../images/shouqi2.jpg) left center no-repeat;}
+
+.slider-list .look{ font-size:14px; background:url(../images/look.jpg) left center no-repeat; padding-left:24px; float:left; margin-left:20px; cursor:pointer;}
+
+.target a{font-size:14px; padding-left:24px; margin-left:20px;}
+.target a.target-l{ background:url(../images/tu6.jpg) left center no-repeat;}
+.target a.target-r{ background:url(../images/tu7.jpg) left center no-repeat;}

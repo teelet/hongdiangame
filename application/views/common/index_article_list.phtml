@@ -1,0 +1,125 @@
+<?php
+if(is_array($list) && !empty($list)){
+    foreach ($list as $article) {
+        switch ($article['i_show_tpl']) {
+            case 'tpl_morepic'://多图
+                ?>
+                <div class="box3 tpl_morepic">
+                    <h3><a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a></h3>
+                    <div class="h144 clearfix">
+                        <?php foreach ($article['images'] as $image) { ?>
+                        <a href="javascript:;"><img src="<?=$image['z_image']?>" /></a>
+                        <?php } ?>
+                    </div>
+                    <div class="box3-b">
+                        <?=($article['is_top'] ? '<a href="javascript:;" class="zhiding"><b></b>置顶</a>' : '')?>
+                        <a href="javascript:;"><?=$article['author']?></a>
+                        <a href="javascript:;"><?=$article['comment']?>评论</a>
+                        <a href="javascript:;"><?=(time()-$article['ctime'] > 3600 ? '1小时前' : date('H:i',$article['ctime']))?></a>
+                    </div>
+                </div>
+                <?php
+                break;
+
+            case 'tpl_onepic'://单图
+                ?>
+                <div class="box2 tpl_onepic">
+                    <dl class="clearfix">
+                        <dt><img src="<?=$article['images'][0]['z_image']?>" /></dt>
+                        <dd>
+                            <a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a>
+                            <div class="txt-b">
+                                <?=($article['is_top'] ? '<a href="javascript:;" class="zhiding"><b></b>置顶</a>' : '')?>
+                                <a href="javascript:;"><?=$article['author']?></a>
+                                <a href="javascript:;"><?=$article['comment']?>评论</a>
+                                <a href="javascript:;"><?=(time()-$article['ctime'] > 3600 ? '1小时前' : date('H:i',$article['ctime']))?></a>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <?php
+                break;
+            
+            case 'tpl_nopic'://无图
+                ?>
+                <div class="box3 tpl_nopic">
+                    <h3><a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a></h3>
+                    <div class="box3-b">
+                        <?=($article['is_top'] ? '<a href="javascript:;" class="zhiding"><b></b>置顶</a>' : '')?>
+                        <a href="javascript:;"><?=$article['author']?></a>
+                        <a href="javascript:;"><?=$article['comment']?>评论</a>
+                        <a href="javascript:;"><?=(time()-$article['ctime'] > 3600 ? '1小时前' : date('H:i',$article['ctime']))?></a>
+                    </div>
+                </div>
+                <?php
+                break;
+
+            case 'tpl_video':
+                ?>
+                <div class="box2 tpl_video">
+                    <dl class="clearfix">
+                        <dt><img src="<?=$article['images'][0]['z_image']?>" /></dt>
+                        <dd>
+                            <a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a>
+                            <div class="txt-b">
+                                <?=($article['is_top'] ? '<a href="javascript:;" class="zhiding"><b></b>置顶</a>' : '')?>
+                                <a href="javascript:;"><?=$article['author']?></a>
+                                <a href="javascript:;"><?=$article['comment']?>评论</a>
+                                <a href="javascript:;"><?=(time()-$article['ctime'] > 3600 ? '1小时前' : date('H:i',$article['ctime']))?></a>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <?php
+                break;
+
+            case 'tpl_gif':
+                ?>
+                <div class="box2 tpl_gif">
+                    <dl class="clearfix">
+                        <dt><img src="<?=$article['images'][0]['z_image']?>" /></dt>
+                        <dd>
+                            <a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a>
+                            <div class="txt-b">
+                                <?=($article['is_top'] ? '<a href="javascript:;"><b></b>置顶</a>' : '')?>
+                                <a href="javascript:;"><?=$article['author']?></a>
+                                <a href="javascript:;"><?=$article['comment']?>评论</a>
+                                <a href="javascript:;"><?=(time()-$article['ctime'] > 3600 ? '1小时前' : date('H:i',$article['ctime']))?></a>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <?php
+                break;
+
+            case 'tpl_ad':
+                ?>
+                <div class="box2 tpl_ad">
+                    <dl class="clearfix">
+                        <dt><img src="<?=$article['images'][0]['z_image']?>" /></dt>
+                        <dd>
+                            <?php if(1 == $article['opentype']){ ?>
+                            <a href="<?=$article['ad_stat_url']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a>
+                            <?php }else{ ?>
+                            <a href="<?=$article['ad_url']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a>
+                            <?php } ?>
+                            <div class="txt-b">
+                                <?=($article['is_top'] ? '<a href="javascript:;"><b></b>置顶</a>' : '')?>
+                                <a href="javascript:;"><?=$article['author']?></a>
+                                <a href="javascript:;"><?=$article['comment']?>评论</a>
+                                <a href="javascript:;"><?=(time()-$article['ctime'] > 3600 ? '1小时前' : date('H:i',$article['ctime']))?></a>
+                                <?=($article['is_show_adnote'] ? '<a href="javascript:;" class="span">广告</a>' : '')?>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <?php
+                break;
+
+            default:
+                # code...
+                break;
+        }
+    }
+}
+?>

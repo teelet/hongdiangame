@@ -1,0 +1,165 @@
+<?php $pro = require_once ('conf/area/province.php');?>
+<script src="/static/js/editInfo.js"></script>
+<div class="con-c fl">
+    <div class="xiugai-tit clearfix">
+        <h3>我的资料</h3>
+    </div>
+    <table width="0" border="0" class="table table-a">
+        <tr>
+            <td width="110" class="td" valign="top">昵称</td>
+            <td><input type="text" class="txt nickname" value="<?=$nickname?>"/><p class="error nick-err"></p></td>
+        </tr>
+        <tr>
+            <td class="td" valign="top">个性签名</td>
+            <td><textarea name="" cols="" rows="" class="summary"><?=$summary?></textarea><p class="error summary-err"><em></em></p></td>
+        </tr>
+        <tr>
+            <td class="td">性别</td>
+            <td>
+                <div class="xb">
+                    <span <?php if($sex == 1){?>class="cur" <?php }?> ><b></b>男</span>
+                    <span <?php if($sex == 2){?>class="cur" <?php }?> ><b></b>女</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="td" valign="top">生日</td>
+            <td>
+                <div class="tablebox" id="menu">
+                    <div class="tablebox1 default-year"><?php if(substr($birthday,0,4)){echo substr($birthday,0,4)+0;}else{echo date('Y',time())+0;} ?></div>
+                    <ul  class="tablebox2 year">
+
+                    </ul>
+                    <em>年</em>
+                </div>
+                <div class="tablebox" id="menu">
+                    <div class="tablebox1 default-month"><?php if(substr($birthday,4,2)){echo substr($birthday,4,2)+0;}else{echo date('m',time())+0;} ?></div>
+                    <ul  class="tablebox2 month">
+
+                    </ul>
+                    <em>月</em>
+                </div>
+                <div class="tablebox" id="menu">
+                    <div class="tablebox1 default-day"><?php if(substr($birthday,6,2)){echo substr($birthday,6,2)+0;}else{echo date('d',time())+0;}?></div>
+                    <ul  class="tablebox2 day">
+
+                    </ul>
+                    <em>日</em>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="td">所在地</td>
+            <td>
+                <div class="tablebox" id="menu">
+                    <div class="tablebox1 tablebox1-w province"><?php if(!empty($province)){echo $province;}else{echo '省份'; }?></div>
+                    <ul  class="tablebox2 tablebox2-w">
+                    <?php
+                        foreach($pro['province'] as $key => $val){
+                            echo '<li>'.$val.'</li>';
+                        }
+                    ?>
+                    </ul>
+                </div>
+                <div class="tablebox" id="menu">
+                    <div class="tablebox1 tablebox1-w city"><?php if(!empty($city)){echo $city;}else{echo '城市';}?></div>
+                    <ul  class="tablebox2 tablebox2-w cities">
+
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="td">&nbsp;</td>
+            <td>
+                <input type="button" value="保存" class="btn bs" id="save"/>
+                <input type="button" value="取消" class="btn" id="reset"/>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    // 1、性别的切换
+    $('.xb span').click(function(){
+        $('.xb span').removeClass('cur');
+        $('.xb span').eq($(this).index()).addClass('cur');
+    })
+
+    // 2、城市二级联动
+    $(document).on('click','.tablebox .city',function(){
+        $('.tablebox ul.cities').empty();
+        var proName = $('.tablebox .province').html();
+        $.post('/ajax_user/getCityByPro',{'proName':proName},function(re){
+            for(var i in re['city']){
+                $('.tablebox ul.cities').append('<li>'+re['city'][i]+'</li>');
+            }
+        });
+    });
+
+    $(".cities").on('click', 'li', function(){  // 选择城市
+        var value=$(this).html();
+        $('.tablebox .city').html(value);
+        $(".tablebox1").next().hide();
+    });
+
+    //3、生日时间选择
+    var yearSelector = $('#menu ul.year');
+    var monthSelector = $('#menu ul.month');
+    var daySelector = $('#menu ul.day');
+
+    var yearNow = new Date().getFullYear();   //年份列表
+    for (var i = yearNow; i >= 1900; i--) {
+        var yearStr = "<li>"+i+"</li>";
+        yearSelector.append(yearStr);
+    }
+
+    for (var i = 1; i <= 12; i++) {  //月份列表
+        var monthStr = "<li>"+i+"</li>";
+        monthSelector.append(monthStr);
+    }
+
+    $('.tablebox').on('click','.default-day',function(){   // 天数（日）列表
+        var year = $('.default-year').html();
+        var month = $('.default-month').html();
+        year = parseInt(year);
+        month = parseInt(month);
+        var dayCount = 0;
+        switch (month){
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                dayCount = 31;
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dayCount = 30;
+                break;
+            case 2:
+                dayCount = 28;
+                if((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)){
+                    dayCount = 29;
+                }
+                break;
+            default:
+                break;
+        }
+        daySelector.empty();
+        for(var i=1; i<dayCount ;i++){
+            var dayStr = "<li>"+i+"</li>";
+            daySelector.append(dayStr);
+        }
+    });
+
+    $(".day").on('click', 'li', function(){  // 选择天数
+        var value = $(this).html();
+        $('.tablebox .default-day').html(value);
+        $(".tablebox1").next().hide();
+    });
+</script>
+

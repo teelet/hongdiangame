@@ -1,0 +1,188 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+<script type="text/javascript" src="/static/js/group.js"></script>
+<script type="text/javascript" src="/static/js/jquery.mise.js"></script>
+<script type="text/javascript" src="/static/js/my.qqFace.js"></script>
+<script type="text/javascript" src="/static/kindeditor/kindeditor.js"></script>
+<script type="text/javascript" src="/static/kindeditor/zh_CN.js"></script>
+<script>
+    tmpObj = {};
+    tmpObj.g_g_id = <?=$g_g_id?>;
+    tmpObj.isLogin = <?=$isLogin?>;
+    tmpObj.g_g_name = '<?=$g_g_name?>';
+    //实例化表情插件
+    <?php
+        if($is_my_group):   //测试阶段先屏蔽
+    ?>
+    $(function(){
+        $('#face2').qqFace({
+            id : 'facebox1', //表情盒子的ID
+            assign:'content1', //给那个控件赋值
+            path:'/static/face/',	//表情存放的路径
+            tip: '/表情'
+        });
+    });
+    <?php
+        endif;
+    ?>
+
+    //查看结果
+    function view(id){
+        var str = $('#'+id).val();
+        str = str.replace(/\</g,'&lt;');
+        str = str.replace(/\>/g,'&gt;');
+        str = str.replace(/\n/g,'<br/>');
+        str = str.replace(/\[\/表情([0-9]*)\]/g,'<img src="/static/face/$1.gif" border="0" />');
+        $('#result').html($('#result').html() + str);
+    }
+
+    //嵌入kindeditor
+    KindEditor.ready(function (k) {
+        window.editor = k.create('#content1', {
+            themeType : 'qq',
+            items : [
+                'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link'
+            ]
+        });
+    });
+
+</script>
+<div class="Html-con con1 clearfix">
+    <div class="fanew">
+        <div class="pages-top">
+            <a href="javascript:;">小组</a> >
+            <a href="javascript:;"><?=$g_g_name?></a> >
+            <span>发新帖</span>
+        </div>
+        <?php
+            if($is_my_group == true):
+        ?>
+                <form class="fanew-form">
+                    <div id="result"></div>
+                    <input type="text" value="" placeholder="标题" class="txt blog_title" />
+                    <div class="hf-form hf-form2">
+                        <textarea name="" cols="" class="blog_content" rows="" style="height: 300px;" placeholder="正文" id="content1"></textarea>
+                        <div class="cpic tpl_morepic clearfix">
+                            <!--
+                            <em><img src="/static/images/img1.jpg" /><b class="close"></b></em>
+                            <em><img src="/static/images/img5.jpg" /><b class="close"></b></em>
+                            <em><img src="/static/images/img5.jpg" /><b class="close"></b></em>
+                            -->
+                        </div>
+                        <div class="fb-btn clearfix">
+                            <input type="button" value="发表" class="btn blog_post_btn"/>
+                            <div id="face2" style="cursor:pointer;"></div>
+                            <b class="tu3" id="select_img" style="cursor:pointer;"></b>
+                        </div>
+                    </div>
+                </form>
+        <?php
+            else:
+        ?>
+            <div style="margin:100px 0 0 100px;">您还未加入该小组,暂不能发帖~</div>
+        <?php
+            endif;
+        ?>
+
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/qiniu/plupload.full.min.js"></script>
+<script type="text/javascript" src="/static/js/qiniu/qiniu.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pic_num = 0;
+        max_num = 9;
+        pathArr = [];
+        obj = null;
+        infos = {};
+        node = {
+            runtimes: 'html5,flash,html4',      // 上传模式，依次退化
+            browse_button: 'select_img',         // 上传选择的点选按钮，必需
+            // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
+            // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
+            // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
+            uptoken : 'null', //在FilesAdded 方法中有赋值
+            //uptoken_url: '/uptoken',         // Ajax请求uptoken的Url，强烈建议设置（服务端提供）
+            //uptoken_func: function(file){    // 在需要获取uptoken时，该方法会被调用  (****但是此方法在页面加载的时候就触发)
+            //    return token;
+            //},
+            get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的uptoken
+            unique_names: false,              // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+            save_key: false,                  // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+            domain: 'http://pic.hongdiangame.com/',     // bucket域名，下载资源时用到，必需
+            max_file_size: '100mb',             // 最大文件体积限制
+            max_retries: 1,                     // 上传失败最大重试次数
+            dragdrop: true,                     // 开启可拖曳上传
+            chunk_size: '4mb',                  // 分块上传时，每块的体积
+            auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+            //multi_selection: false,              //设置每次只能选择一个文件
+            init: {
+                'FilesAdded': function(up, files) {
+                    pic_num = 0;
+                    plupload.each(files, function(file) {
+                        // 文件添加进队列后，处理相关的事情
+                        if(pic_num < max_num){
+                            pic_num++;  //统计有多少张图片 但不能超过max_num
+                        }else{
+                            up.removeFile(file); //图片超出限制就废弃
+                        }
+                    });
+                    //在此处从后台获取token (****为什么不在uptoken_func中获取,因为uptoken_func在页面加载后就执行了,不能获取图片张数)
+                    $.ajax({
+                         url  : '/ajax_imgtoken/token',
+                         type : 'GET',
+                         dataType : 'json',
+                         data : {'num':pic_num},
+                         async : false, //设为同步方式  为了等待后台数据返回  完成赋值操作
+                         success : function (dt) {
+                             if(dt.statusCode == 0){
+                                 //node.uptoken = dt.token.token; //经读源码得知, 这里直接修改Qiniu.token才有效 (Qiniu.token是在初始化的时候获取node.uptoken的,后期修改node.uptoken以无效)
+                                 Qiniu.token = dt.token.token;
+                                 pathArr = dt.token.paths;
+                             }
+                         }
+                     });
+
+                },
+                'BeforeUpload': function(up, file) {
+                    // 每个文件上传前，处理相关的事情
+                },
+                'UploadProgress': function(up, file) {
+                    // 每个文件上传时，处理相关的事情
+                },
+                'FileUploaded': function(up, file, info) {
+                    // 每个文件上传成功后，处理相关的事情
+                    // 其中info是文件上传成功后，服务端返回的json，形式如：
+                    // {
+                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                    //    "key": "gogopher.jpg"
+                    //  }
+                    // 查看简单反馈
+                    var domain = up.getOption('domain');
+                    var res = JSON.parse(info); //console.log(res);
+                    var sourceLink = domain + res.key + '?imageView2/1/w/100/h/100'; //获取上传成功后的文件的Url
+                    infos[res.hash] = info;
+                    $('.cpic').append('<em><img src="'+ sourceLink +'"  data-hash="'+ res.hash +'" /><b class="close"></b></em>');
+
+                },
+                'Error': function(up, err, errTip) {
+                    //上传出错时，处理相关的事情
+                    alert(JSON.stringify(err));
+                },
+                'UploadComplete': function() {
+                    //队列文件处理完毕后，处理相关的事情
+                },
+                'Key': function(up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在unique_names: false，save_key: false时才生效
+                    var ext = file.name.split('.').pop();
+                    var name = pathArr.shift();
+                    var key = name + '.' + ext;
+                    return key
+                }
+            }
+        };
+
+        var uploader = Qiniu.uploader(node);
+    });
+</script>
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

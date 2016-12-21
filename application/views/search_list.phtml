@@ -1,0 +1,9 @@
+<?php
+    if($result['rst']):
+        foreach ($result['rst'] as $item):
+?>
+            <li><?=$item['title']?></li>
+<?php
+        endforeach;
+    endif;
+?>

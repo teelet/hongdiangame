@@ -1,0 +1,44 @@
+<?php
+if(is_array($comment['list']) && !empty($comment['list'])){
+    $userinfo = $comment['userinfo'];
+    foreach ($comment['list'] as $c) {
+?>
+    <div style="clear:both;">
+        <dt class="fl"><img src="<?=$userinfo[$c['uid']]['url']?>" /></dt>
+        <dd class="fr">
+            <div class="pl-name clearfix">
+                <div class="name fl">
+                    <a href="/user/index?uid=<?=$c['uid']?>"><?=$userinfo[$c['uid']]['nickname']?></a>
+                    <span><?=date('Y-m-d H:i:s',$c['ctime'])?></span>
+                </div>
+                <div class="zan fr">
+                    <a class="zan-icon" data-id="<?=$c['id']?>"><?=((int)$c['favor_num'] > 0 ? $c['favor_num'] : '赞')?></a>
+                    <a class="hf-icon" data-id="<?=$c['id']?>"><?=((int)$c['reply_num'] > 0 ? $c['reply_num'] : '回复')?></a>
+                </div>
+                <div class="clearfix"></div>
+                <form id="f_reply_<?=$c['id']?>" class="hf-form hf-formhide">
+                    <input name="pid" type="hidden" value="<?=$c['id']?>" />
+                    <textarea name="content" cols="" rows="" placeholder="说点神马……"></textarea>
+                    <div class="fb-btn clearfix putyskn" style="position:relative;">
+                        <input type="button" value="发表" class="btn reply" />
+                        <!-- <b class="faceBtn1"></b> -->
+                    </div>
+                </form>  
+            </div>
+            <p><?=nl2br(htmlspecialchars($c['content']))?></p>
+        </dd>
+        <?php
+        $reply = $c['reply'];
+        require(dirname(__FILE__).'/article_reply_list.phtml');
+
+        if((int)$c['reply_num'] > 3){
+            echo '<dd class="fr">';
+            echo '<a id="reply_more_'.$c['id'].'" href="javascript:;" class="reply_more" data-page="1" data-cid="'.$c['id'].'">查看更多</a>';
+            echo '</dd>';
+        }
+        ?>
+    </div>
+<?php
+    }
+}
+?>

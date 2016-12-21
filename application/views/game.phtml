@@ -1,0 +1,75 @@
+<?php require_once(dirname(__FILE__).'/header.phtml'); ?>
+<div class="Html-con con1 clearfix">
+	<!--左-->
+	<?php require_once(dirname(__FILE__).'/common/common_left_nav.phtml') ?>
+    <!--中-->
+	<div class="con-c fl">
+    	<div class="like-game">
+        	<div class="tit clearfix">
+            	<h3>选择喜欢的游戏，让更推荐更精准</h3>
+                <!--<a href="javascript:;" id="save_mygame">保存</a>-->
+            </div>
+            <div class="like-box mygame">
+                <h1>我的游戏</h1>
+                <div class="like-list clearfix">
+            <?php 
+            if(isset($mygame) && !empty($mygame)){
+                foreach ($mygame as $mg) { 
+            ?>
+                <a href="javascript:;">
+                    <img src="<?=$mg['url']?>" />
+                    <span><?=htmlspecialchars($mg['name'])?></span>
+                    <b class="del" data-gid="<?=$mg['gid']?>" data-name="<?=$mg['name']?>" data-gtid="<?=$mg['g_t_id']?>"></b>
+                </a>
+            <?php 
+                }
+            }
+            ?>
+                </div>
+            </div>
+
+            <?php require_once(dirname(__FILE__).'/common/game_all.phtml'); ?>
+        </div>
+    </div>
+    <!--右-->
+	<div class="con-r fr">
+    	<h3>24小时热门新闻</h3>
+        <?php
+        if(!empty($hot24[0]['images'][0]['z_image'])){
+            echo '<img src="'.$hot24[0]['images'][0]['z_image'].'" />';
+        }
+        ?>
+        <ul>
+            <?php
+            if(is_array($hot24) && !empty($hot24)){
+                foreach ($hot24 as $key => $val) {
+                    $order = '';
+                    if((int)$key > 0 && (int)$key <= 2){
+                        $order = '<b class="b-bg'.(int)$key.'">'.(int)$key.'</b>';
+                    }elseif ((int)$key > 2) {
+                        $order = '<b class="b-bg3">'.(int)$key.'</b>';
+                    }
+                    echo '<li>'.$order.'<a href="/article/index?aid='.$val['aid'].'">'.htmlspecialchars($val['title']).'</a></li>';
+                }
+            }
+            ?>
+        </ul>
+        <div class="box4 tpl_video">
+       		<h3>热门视频</h3>
+            <?php
+            if(is_array($hotVideo) && !empty($hotVideo)){
+                foreach ($hotVideo as $video) {
+                    echo '<dl>';
+                    if(!empty($video['image'])){
+                        echo '<dt><img src="'.$video['image'].'" /></dt>';
+                    }
+                    echo '<dd>'.htmlspecialchars($video['title']).'</dd>';
+                    echo '</dl>';
+                }
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<script src="/static/js/game.js" type="text/javascript"></script>
+<?php require_once(dirname(__FILE__).'/footer.phtml'); ?>

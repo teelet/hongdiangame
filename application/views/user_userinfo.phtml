@@ -1,0 +1,25 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+
+<link rel="stylesheet" type="text/css" href="/static/css/user.css" />
+<script src="/static/js/index.js" type="text/javascript"></script>
+
+<div class="Html-con con1 clearfix">
+    <!--左-->
+    <div class="con-l fl">
+        <div class="subNavBox">
+            <div class="subNav currentDd currentDt"><b class="icon11"></b>账号设置</div>
+            <ul class="navContent " style="display:block">
+                <li class="on"><a href="/user/userinfo"><b></b>我的资料</a></li>
+                <li><a href="/user/userinfo?type=1"><b></b>修改头像</a></li>
+            </ul>
+            <div class="subNav currentDd currentDt"><b class="icon12"></b>账户安全</div>
+            <ul class="navContent">
+                <li><a href="/user/userinfo?type=2"><b></b>修改密码</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--中-->
+    <?php require_once (dirname(__FILE__).'/'.$include_tpl);?>
+</div>
+
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

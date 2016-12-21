@@ -1,0 +1,49 @@
+<?php require_once(dirname(__FILE__).'/header.phtml') ?>
+<script type="text/javascript" src="/static/js/jquery.mise.js"></script>
+<script type="text/javascript" src="/static/js/my.qqFace.js"></script>
+<script type="text/javascript" src="/static/js/group.js"></script>
+<script type="text/javascript">
+    tmpObj = {};
+    tmpObj.page = 1;
+    tmpObj.pageSize = <?=$page_size?>;
+    tmpObj.pageCount = <?=$page_count?>;
+    tmpObj.feedType = <?=$feed_type?>;
+    tmpObj.type = <?=$type?>; //0文章 1帖子 2系统
+</script>
+<div class="Html-con con1 clearfix">
+    <!--左-->
+    <div class="con-l fl">
+        <div class="subNavBox">
+            <div class="subNav <?php if($type == 0){echo 'currentDd currentDt';}?>"><b class="icon9"></b>评论通知</div>
+            <ul class="navContent" style="<?php if($type == 0){echo 'display:block';}?>">
+                <li class="<?php if($tab == 0){echo 'on';} ?>"><a href="?type=0&tab=0"><b></b>评论回复</a></li>
+                <li class="<?php if($tab == 1){echo 'on';} ?>"><a href="?type=0&tab=1"><b></b>评论的赞</a></li>
+            </ul>
+            <div class="subNav <?php if($type == 1){echo 'currentDd currentDt';}?>"><b class="icon4"></b>小组通知</div>
+            <ul class="navContent" style="<?php if($type == 1){echo 'display:block';}?>">
+                <li class="<?php if($tab == 2){echo 'on';} ?>"><a href="?type=1&tab=2"><b></b>收到的回贴</a></li>
+                <li class="<?php if($tab == 3){echo 'on';} ?>"><a href="?type=1&tab=3"><b></b>回帖的回复</a></li>
+                <li class="<?php if($tab == 4){echo 'on';} ?>"><a href="?type=1&tab=4"><b></b>回帖的赞</a></li>
+            </ul>
+            <div class="subNav <?php if($type == 2){echo 'currentDd currentDt';}?>"><b class="icon10"></b>系统通知</div>
+            <ul class="navContent" style="<?php if($type == 2){echo 'display:block';}?>">
+                <li class="<?php if($tab == 5){echo 'on';} ?>"><a href="?type=2&tab=5"><b></b>通知</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--中-->
+    <div class="con-c fl">
+        <div id="result"></div>
+        <div class="pl-box message_list">
+            <?php require_once(dirname(__FILE__).'/'.$include_tpl) ?>
+        </div>
+
+        <?php
+            if($page_count > 1){
+                echo '<a class="feed_more message_more" style="cursor: pointer; display: block; width: 666px; height: 38px; font-size: 14px; background: #f7f7f7; text-align: center; line-height: 38px;">查看更多</a>';
+            }
+        ?>
+
+    </div>
+</div>
+<?php require_once(dirname(__FILE__).'/footer.phtml') ?>

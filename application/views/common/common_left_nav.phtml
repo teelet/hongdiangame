@@ -1,0 +1,30 @@
+<div class="con-l fl">
+    <div class="subNavBox">
+        <div class="subNav <?php if($from == 1){echo 'currentDd currentDt';}?>"><b class="icon3"></b>首页</div>
+        <ul class="navContent navContent_game" style="<?php if($from == 1){echo 'display:block';}?>">
+            <li class="<?php if(empty($gid) && $from == 1){echo 'on';}?>"><a href="/"><b></b>随便看看</a></li>
+            <?php
+                if(!empty($mygame)){
+                    foreach ($mygame as $v) {
+                        echo '<li id="left_nav_game_'.$v['gid'].'" '.(!empty($gid)&&$gid==$v['gid']?'class="on"':'').'><a href="/index/game?gid='.$v['gid'].'&g_name='.$v['name'].'"><b></b>'.htmlspecialchars($v['name']).'</a></li>';
+                    }
+                }
+            ?>
+        </ul>
+        <div class="subNav <?php if($from == 2){echo 'currentDd currentDt';}?>"><b class="icon4"></b>小组</div>
+        <ul class="navContent navContent_group" style="<?php if($from == 2){echo 'display:block';}?>">
+            <li class="<?php if(empty($g_g_id) && $from == 2){echo 'on';}?>"><a href="/group"><b></b>热门帖</a></li>
+            <?php
+            if ($isLogin == true): //登录状态
+                if($my_groups):
+                    foreach ($my_groups as $group):
+                        ?>
+                        <li id="left_nav_game_<?=$group['g_g_id']?>" class="<?php if($group['g_g_id'] == $g_g_id){echo 'on';}?>"><a href="/group?g_g_id=<?=$group['g_g_id']?>&g_g_name=<?=$group['name']?>"><b></b><?=$group['name']?></a></li>
+                        <?php
+                    endforeach;
+                endif;
+            endif;
+            ?>
+        </ul>
+    </div>
+</div>

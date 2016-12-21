@@ -1,0 +1,35 @@
+<div class="hf1">
+    <span><a><?php if($_COOKIE['nickname']){echo $_COOKIE['nickname'];}else{echo '我';}?></a><?=date('Y-m-d H:i:s')?></span>
+    <p>回复
+        <?php
+            if($touid != $commentuid):
+        ?>
+                <a><?=$toname?></a>
+        <?php
+            endif;
+        ?>
+        : <?=$content?></p>
+    <div class="zan">
+        <a href="javascript:;" data-id="<?=$result['id']?>" class="hf-icon fl">回复</a>
+        <a class="zan-icon action_zan" data-flag="0">0</a>
+    </div>
+    <form class="hf-form hf-formhide">
+        <textarea name="" cols="" rows="" id="content_reply<?=$result['id']?>_floor<?=$floor?>" placeholder="说点神马……(5~1000个字或字符)"></textarea>
+        <input type="button" value="发表" data-touid="<?=$_COOKIE['uid']?>" data-floor="<?=$floor?>" data-commentuid="<?=$commentuid?>" data-toname="<?=$toname?>" class="btn blog_reply_btn" data-flag="1" />
+        <b id="face_reply<?=$result['id']?>_floor<?=$floor?>"></b>
+    </form>
+    <!--添加qqface-->
+    <script type="text/javascript">
+        //实例化表情插件
+        $(function(){
+            var face2 = '#face_reply' + <?=$result['id']?> + '_floor' + <?=$floor?>;
+            var content2 = 'content_reply' + <?=$result['id']?> + '_floor' + <?=$floor?>;
+            $(face2).qqFace({
+                id : 'facebox1', //表情盒子的ID
+                assign: content2, //给那个控件赋值
+                path:'/static/face/',	//表情存放的路径
+                tip: '/表情'
+            });
+        });
+    </script>
+</div>

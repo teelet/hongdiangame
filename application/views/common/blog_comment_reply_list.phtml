@@ -1,0 +1,51 @@
+<?php
+    function str2html($str){
+        $str = str_replace('&lt;', '<', $str);
+        $str = str_replace('&gt;', '>', $str);
+        return $str;
+    }
+?>
+<?php
+    if(count($replys) > 0):
+        $index = 1;
+        foreach($replys as $reply):
+?>
+            <div class="hf1">
+                <span><a><?=$user_info[$reply['uid']]['nickname']?></a><?=date('Y-m-d H:i:s', $reply['ctime'])?></span>
+                <p>回复
+                    <?php
+                    if($reply['touid'] != $comment_uid):
+                    ?>
+                        <a><?=$user_info[$reply['touid']]['nickname']?></a>
+                    <?php
+                    endif;
+                    ?>
+                    : <?=str2html($reply['content'])?></p>
+                <div class="zan">
+                    <a href="javascript:;" data-id="<?=$reply['id']?>" class="hf-icon fl">回复</a>
+                    <a class="zan-icon action_zan" data-flag="0"><?=$reply['favor_num']?></a>
+                </div>
+                <form class="hf-form hf-formhide">
+                    <textarea name="" cols="" rows="" id="content_reply<?=$reply['id']?>_floor<?=$floor?>" placeholder="说点神马……(5~1000个字或字符)"></textarea>
+                    <input type="button" value="发表" data-touid="<?=$reply['uid']?>" data-floor="<?=$floor?>" data-commentuid="<?=$comment_uid?>" data-toname="<?=$user_info[$reply['uid']]['nickname']?>" class="btn blog_reply_btn" data-flag="1" />
+                    <b id="face_reply<?=$reply['id']?>_floor<?=$floor?>"></b>
+                </form>
+                <!--添加qqface-->
+                <script type="text/javascript">
+                    //实例化表情插件
+                    $(function(){
+                        var face2 = '#face_reply' + <?=$reply['id']?> + '_floor' + <?=$floor?>;
+                        var content2 = 'content_reply' + <?=$reply['id']?> + '_floor' + <?=$floor?>;
+                        $(face2).qqFace({
+                            id : 'facebox1', //表情盒子的ID
+                            assign: content2, //给那个控件赋值
+                            path:'/static/face/',	//表情存放的路径
+                            tip: '/表情'
+                        });
+                    });
+                </script>
+            </div>
+<?php
+        endforeach;
+    endif;
+?>

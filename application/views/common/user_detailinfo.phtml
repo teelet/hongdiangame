@@ -1,0 +1,28 @@
+<div class="con-c fl">
+    <div class="xiugai-tit clearfix">
+        <h3>我的资料</h3>
+        <a href="/user/userinfo?type=3">修改</a>
+    </div>
+    <table width="0" border="0" class="table">
+        <tr>
+            <td width="110" class="td">昵称</td>
+            <td><span><?=$nickname?></span></td>
+        </tr>
+        <tr>
+            <td class="td">个性签名</td>
+            <td><span><?=$summary?></span></td>
+        </tr>
+        <tr>
+            <td class="td">性别</td>
+            <td><span><?php echo $sex==1 ? '男' : '女' ?></span></td>
+        </tr>
+        <tr>
+            <td class="td">生日</td>
+            <td><span><?php echo substr($birthday,0,4).'年'.substr($birthday,4,2).'月'.substr($birthday,6,2).'日'; ?></span></td>
+        </tr>
+        <tr>
+            <td class="td">所在地</td>
+            <td><span><?=$province?> <?php if($province != $city){echo $city;}?></span></td>
+        </tr>
+    </table>
+</div>

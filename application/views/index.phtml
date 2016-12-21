@@ -1,0 +1,72 @@
+<?php require_once(dirname(__FILE__).'/header.phtml'); ?>
+<link rel="stylesheet" type="text/css" href="/static/css/slider.css"/>
+<div class="Html-con con1 clearfix">
+	<!--左-->
+    <?php require_once(dirname(__FILE__).'/common/common_left_nav.phtml') ?>
+    <!--中-->
+	<div class="con-c fl">
+        <?php if(!empty($gid)){ ?>
+        <div class="tab-nav">
+            <?php
+                foreach ($list_type as $v) {
+                    echo '<a href="/index/game?type='.$v['type'].'&gid='.$gid.'&g_name='.$g_name.'" '.($type==$v['type']?'class="cur"':'').'>'.htmlspecialchars($v['name']).'</a>';
+                }
+            ?>
+        </div>
+        <?php
+        }
+
+        if(!empty($regame) && is_array($regame)){
+        ?>
+    	<h4>选择喜欢的游戏，<br />让红点游戏为你发现更多乐趣</h4>
+        <div class="box1 clearfix">
+            <?php
+            foreach ($regame as $game) {
+                echo '<a href="javascript:;" class="regame"><img src="'.$game['url'].'"/><span>'.htmlspecialchars($game['name']).'</span><b class="'.(1 == $game['hasAdd'] ? 'del' : 'add').'" data-gid="'.$game['gid'].'" data-name="'.$game['name'].'"></b></a>';
+            }
+            ?>
+            <a href="/game/" class="more"><img src="/static/images/morejia.png" /><span>更多游戏</span></a>
+        </div>
+        <?php } ?>
+        <a href="javascript:;" class="notice unread-notice" data-gid="<?=$gid?>" data-type="<?=$type?>"><font></font><h2>X</h2></a>
+        <?php require(dirname(__FILE__).'/common/index_article_list.phtml'); ?>
+        <a href="javascript:;" class="notice scroll-notice" data-gid="<?=$gid?>" data-type="<?=$type?>"></a>
+        <!--<a href="javascript:;" class="refresh" data-gid="<?=$gid?>" data-type="<?=$type?>">上次读到这里，点击刷新</a>-->
+    </div>
+    <!--右-->
+	<div class="con-r fr">
+    	<h3>24小时热门新闻</h3>
+        <?php
+        if(!empty($hot24[0]['images'][0]['z_image'])){
+            echo '<img src="'.$hot24[0]['images'][0]['z_image'].'" />';
+        }
+        ?>
+        <ul>
+            <?php
+            if(is_array($hot24) && !empty($hot24)){
+                foreach ($hot24 as $key => $val) {
+                    $order = '';
+                    if((int)$key > 0 && (int)$key <= 2){
+                        $order = '<b class="b-bg'.(int)$key.'">'.(int)$key.'</b>';
+                    }elseif ((int)$key > 2) {
+                        $order = '<b class="b-bg3">'.(int)$key.'</b>';
+                    }
+                    echo '<li>'.$order.'<a href="/article/index?aid='.$val['aid'].'">'.htmlspecialchars($val['title']).'</a></li>';
+                }
+            }
+            ?>
+        </ul>
+    </div>
+</div>
+<!--更多游戏-->
+<div class="tan-con tan-moregame">
+    <div class="tan-tit">
+        <h3>添加游戏</h3>
+        <b class="close"></b>
+    </div>
+    <div class="tan-txt">
+    </div>
+</div>
+
+<script src="/static/js/index.js" type="text/javascript"></script>
+<?php require_once(dirname(__FILE__).'/footer.phtml'); ?>

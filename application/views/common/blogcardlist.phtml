@@ -1,0 +1,84 @@
+<?php
+if($blog_list):
+    foreach($blog_list as $blog):
+?>
+        <div class="on-Publish">
+            <div class="tit clearfix">
+                <div class="name-img fl">
+                    <a target="_blank" href="/user/profile?uid=<?=$blog['userinfo']['uid']?>">
+                        <img src="<?=$blog['userinfo']['url']?>" />
+                        <em><?=$blog['userinfo']['nickname']?></em>
+                    </a>
+                    <i><?=date('Y-m-d H:i:s', $blog['ctime'])?></i>
+                </div>
+                <?php
+                    if ($blog['type'] == 1):
+                ?>
+                        <a href="javascript:;" class="txt-a1 fr"><b></b>精华</a>
+                <?php
+                    endif;
+                ?>
+            </div>
+            <div class="text">
+                <h1><a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$blog['g_g_name']?>"><?=$blog['title']?></a></h1>
+                <p><?=$blog['summary']?></p>
+
+                <!--card 样式 begin-->
+                <?php if ($blog['i_show_tpl'] == 'tpl_morepic'):?><!--多图-->
+                        <div class="img-list clearfix">
+                            <?php
+                                $count = count($blog['images']);
+                                $i = 0;
+                                foreach ($blog['images'] as $image):
+                                    $i++;
+                            ?>
+                                <a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$blog['g_g_name']?>">
+                                    <img src="<?=$image?>" />
+                                    <?php if ($i >= 3 ): ?>
+                                        <i><?=$count?></i>
+                                    <?php break; endif; ?>
+                                </a>
+                            <?php
+                                endforeach;
+                            ?>
+                        </div>
+                <?php elseif($blog['i_show_tpl'] == 'tpl_onepic'): ?><!--单图-->
+                        <div class="img-list clearfix">
+                                <a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$blog['g_g_name']?>">
+                                    <img src="<?=$blog['images'][0]?>" />
+                                </a>
+                        </div>
+                <?php elseif($blog['i_show_tpl'] == 'tpl_nopic'): ?><!--无图-->
+                <?php elseif($blog['i_show_tpl'] == 'tpl_video'): ?><!--视频-->
+                        <div class="img-list clearfix">
+                            <a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$blog['g_g_name']?>">
+                                <embed src="<?=$blog['videoUrl']?>" >
+                            </a>
+                        </div>
+                <?php elseif($blog['i_show_tpl'] == 'tpl_gif'): ?><!--GIF-->
+                        <div class="img-list clearfix">
+                            <a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$blog['g_g_name']?>">
+                                <img src="<?=$blog['images'][0]?>" />
+                            </a>
+                        </div>
+                <?php elseif($blog['i_show_tpl'] == 'tpl_ad'): ?><!--广告-->
+
+                <?php else : ?>
+                <?php endif; ?>
+
+                <!--card 样式 end-->
+
+            </div>
+            <div class="botton clearfix">
+                <div class="wenzi fl">
+                    <em><?=$blog['g_g_name']?></em>
+                </div>
+                <div class="zan fr">
+                    <a class="hf-icon"><?=$blog['reply_num']?></a>
+                </div>
+            </div>
+        </div>
+<?php
+    endforeach;
+endif;
+?>
