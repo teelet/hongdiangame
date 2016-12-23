@@ -8,7 +8,7 @@ class AbstractController extends Yaf_Controller_Abstract {
 
     protected $param = array();  //参数
     protected $data = array();   //结果
-    protected $format_title = '%s红点游戏%s(www.hongdiangame.com)';
+    protected $format_title = '%s红点游戏%s';
     
     /*模版文件*/
     protected $tpl = '';

@@ -133,11 +133,11 @@ class UserController extends AbstractController {
         switch($this->data['type']){
             case 1 :
                 $this->data['include_tpl'] = 'common/user_headpicture.phtml';
-                $tmp = '头像设置';
+                $tmp = '';
                 break;
             case 2 :
                 $this->data['include_tpl'] = 'common/user_changepassword.phtml';
-                $tmp = '密码设置';
+                $tmp = '';
                 break;
             case 3 :
                 $this->data['include_tpl'] = 'common/user_changeuserinfo.phtml';
@@ -148,7 +148,7 @@ class UserController extends AbstractController {
                 $tmp = '个人信息';
                 break;
         }
-        $this->data['head_title'] = sprintf($this->format_title, $tmp.' - ', '');
+        $this->data['head_title'] = sprintf($this->format_title, $tmp.'通知 - ', '');
         $this->assign();
         return $this->end();
     }

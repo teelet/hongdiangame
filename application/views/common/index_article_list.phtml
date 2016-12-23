@@ -4,13 +4,30 @@ if(is_array($list) && !empty($list)){
         switch ($article['i_show_tpl']) {
             case 'tpl_morepic'://多图
                 ?>
-                <div class="box3 tpl_morepic">
+                <div class="box3 tpl_morepic needShow">
                     <h3><a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a></h3>
-                    <div class="h144 clearfix">
+                    <div class="h144 clearfix smallPic">
                         <?php foreach ($article['images'] as $image) { ?>
-                        <a href="javascript:;"><img src="<?=$image['z_image']?>" /></a>
+                            <a href="javascript:;"><img src="<?=$image['z_image']?>" /></a>
                         <?php } ?>
                     </div>
+
+                    <div id="slider">
+                        <div class="slider_box">
+                            <ul class="silder_con">
+                                <?php foreach($article['images'] as $img){?>
+                                    <li class="silder_panel"><a href="javascript:;"><img src="<?=$img['z_image']?>"/></a></li>
+                                <?php }?>
+                            </ul>
+                            <ul class="silder_nav clearfix">
+                                <?php foreach($article['images'] as $img){?>
+                                    <li><a href="javascript:;"><img src="<?=$img['z_image']?>"/></a></li>
+                                <?php }?>
+                            </ul>
+                        </div>
+                        <div class="silderBox"></div>
+                    </div>
+
                     <div class="box3-b">
                         <?=($article['is_top'] ? '<a href="javascript:;" class="zhiding"><b></b>置顶</a>' : '')?>
                         <a href="javascript:;"><?=$article['author']?></a>
@@ -23,9 +40,24 @@ if(is_array($list) && !empty($list)){
 
             case 'tpl_onepic'://单图
                 ?>
-                <div class="box2 tpl_onepic">
+                <div class="box2 tpl_onepic needShow">
                     <dl class="clearfix">
-                        <dt><img src="<?=$article['images'][0]['z_image']?>" /></dt>
+                        <dt class="smallPic">
+                            <a href="javascript:;"><img src="<?=$article['images'][0]['z_image']?>" /></a>
+                        </dt>
+
+                        <div id="slider">
+                            <div class="slider_box">
+                                <ul class="silder_con">
+                                    <li class="silder_panel"><a href="javascript:;"><img src="<?=$article['images'][0]['z_image']?>"/></a></li>
+                                </ul>
+                                <ul class="silder_nav clearfix">
+                                    <li><a href="javascript:;"><img src="<?=$article['images'][0]['z_image']?>"/></a></li>
+                                </ul>
+                            </div>
+                            <div class="silderBox"></div>
+                        </div>
+
                         <dd>
                             <a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a>
                             <div class="txt-b">

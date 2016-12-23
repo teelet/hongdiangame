@@ -372,3 +372,6 @@ a.tu3{ display:block; width:22px; height:19px; background:url(../images/tu3.jpg)
 .group_2 a{
 	height:128px;
 }
+.more-button{
+	margin-right:64px;
+}

@@ -3,6 +3,7 @@ if($blog_list):
     foreach($blog_list as $blog):
 ?>
         <div class="on-Publish">
+
             <div class="tit clearfix">
                 <div class="name-img fl">
                     <a target="_blank" href="/user/profile?uid=<?=$blog['userinfo']['uid']?>">
@@ -19,34 +20,81 @@ if($blog_list):
                     endif;
                 ?>
             </div>
+
             <div class="text">
                 <h1><a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$blog['g_g_name']?>"><?=$blog['title']?></a></h1>
                 <p><?=$blog['summary']?></p>
 
                 <!--card 样式 begin-->
+                <div class="needShow">
                 <?php if ($blog['i_show_tpl'] == 'tpl_morepic'):?><!--多图-->
-                        <div class="img-list clearfix">
+                        <div class="img-list clearfix smallPic">
                             <?php
                                 $count = count($blog['images']);
                                 $i = 0;
-                                foreach ($blog['images'] as $image):
+                                foreach ($blog['images'] as $key => $image):
                                     $i++;
+
                             ?>
-                                <a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$blog['g_g_name']?>">
+                                <a href="javascript:;">
                                     <img src="<?=$image?>" />
-                                    <?php if ($i >= 3 ): ?>
+                                    <?php
+                                        if ($i >= 3 ):
+                                            if($count >= 4):
+                                    ?>
                                         <i><?=$count?></i>
-                                    <?php break; endif; ?>
+                                    <?php
+                                             endif;
+                                           break;
+                                        endif;
+                                    ?>
                                 </a>
+
                             <?php
+
                                 endforeach;
                             ?>
                         </div>
+                        <div id="slider">
+                            <div class="slider_box">
+                                <ul class="silder_con">
+                                    <?php foreach($blog['images'] as $image){?>
+                                        <li class="silder_panel">
+                                            <a href="javascript:;">
+                                                <img src="<?=$image?>"/>
+                                            </a>
+                                        </li>
+                                    <?php }?>
+                                </ul>
+                                <ul class="silder_nav clearfix">
+                                    <?php foreach($blog['images'] as $image){?>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="<?=$image?>"/>
+                                            </a>
+                                        </li>
+                                    <?php }?>
+                                </ul>
+                            </div>
+                            <div class="silderBox"></div>
+                        </div>
+
                 <?php elseif($blog['i_show_tpl'] == 'tpl_onepic'): ?><!--单图-->
-                        <div class="img-list clearfix">
-                                <a href="/blog/detail?bid=<?=$blog['bid']?>&g_g_name=<?=$blog['g_g_name']?>">
-                                    <img src="<?=$blog['images'][0]?>" />
-                                </a>
+                        <div class="img-list clearfix smallPic">
+                            <a href="javascript:;">
+                                <img src="<?=$blog['images'][0]?>" />
+                            </a>
+                        </div>
+                        <div id="slider">
+                            <div class="slider_box">
+                                <ul class="silder_con">
+                                    <li class="silder_panel"><a href="javascript:;"><img src="<?=$blog['images'][0]?>"/></a></li>
+                                </ul>
+                                <ul class="silder_nav clearfix">
+                                    <li><a href="javascript:;"><img src="<?=$blog['images'][0]?>"/></a></li>
+                                </ul>
+                            </div>
+                            <div class="silderBox"></div>
                         </div>
                 <?php elseif($blog['i_show_tpl'] == 'tpl_nopic'): ?><!--无图-->
                 <?php elseif($blog['i_show_tpl'] == 'tpl_video'): ?><!--视频-->
@@ -65,10 +113,11 @@ if($blog_list):
 
                 <?php else : ?>
                 <?php endif; ?>
-
                 <!--card 样式 end-->
+                </div>
 
             </div>
+
             <div class="botton clearfix">
                 <div class="wenzi fl">
                     <em><?=$blog['g_g_name']?></em>
@@ -77,6 +126,7 @@ if($blog_list):
                     <a class="hf-icon"><?=$blog['reply_num']?></a>
                 </div>
             </div>
+
         </div>
 <?php
     endforeach;

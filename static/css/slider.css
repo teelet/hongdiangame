@@ -1,5 +1,5 @@
 /*slider*/
-#slider{width:100%;padding-top:8px;}
+#slider{width:100%;padding-top:8px;display: none;}
 .slider_box{width:660px; margin:0 auto;height: 455px;overflow: hidden;position: relative;}
 .silder_con{height:455px;overflow: hidden;position: absolute;}
 .silder_panel{width:660px;height:455px;overflow: hidden;position: relative; float:left;}
@@ -26,3 +26,4 @@
 .target a{font-size:14px; padding-left:24px; margin-left:20px;}
 .target a.target-l{ background:url(../images/tu6.jpg) left center no-repeat;}
 .target a.target-r{ background:url(../images/tu7.jpg) left center no-repeat;}
+
