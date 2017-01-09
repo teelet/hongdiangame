@@ -1,0 +1,123 @@
+html {-ms-text-size-adjust: 100%;/*避免字体被浏览器自动重置*/-webkit-text-size-adjust: 100%;font-size: 62.5%;}
+body {margin: 0;line-height: 1.5;overflow-x: hidden;-webkit-overflow-scrolling: touch;font-family: '微软雅黑', Helvetica, STHeiTi, Arial, sans-serif; position:relative; position:relative;}
+html,body{ width:100%;}
+* {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;margin:0;padding:0;}
+a{ text-decoration:none;}
+li{ list-style:none;}
+a img{border:none;}
+img{ border:none;}
+.clear{ clear:both; overflow:hidden;}
+.clearfix:after{content:".";display:block;height:0; clear:both;visibility:hidden;}
+i,em{ font-style:normal;}
+input{border: none; font-family: '微软雅黑';}
+
+
+
+.Html-con{ width:94%; margin: auto; overflow: hidden;}
+.html{ padding: 0 3%; width: 100%;}
+.fl{ float: left;}
+.fr{ float: right;}
+
+
+
+/*头部*/
+.header{ padding: 8px 0; background: #f7f7f7; border-bottom: 1px #e0e0e0;width: 100%; }
+.header h1{margin-left:3%; float: left;}
+.header h1 img{ width:28%; display:inline-block;  float: left;}
+.header h1 a span{ font-size: 1.75rem; color: #000; font-weight: normal; float: left; margin-left: 8px; line-height:49px;}
+.header > a{ color:#ff4d4d; float: right; display: block; width:28%; border-radius: 5px; height: 40px; border: solid 1px #ff4d4d; margin-top: 4px; background: #fff; text-align: center; line-height: 40px; font-size: 1.65rem; margin-right: 3%;}
+
+.article{ margin-top: 15px;}
+.article h1{ font-weight: normal; color: #000; font-size: 2.25rem;}
+.article .nametime{ font-size: 1.45rem; margin-top: 5px;}
+.article .nametime em{ color: #999; margin-left: 8px;}
+.article img.pic{ width: 100%; margin-top: 8px;}
+.article .txt{ margin-top: 8px;}
+.article .txt p{ font-size: 1.45rem; line-height: 26px;}
+.article .read{ margin-top: 10px;}
+.article .read a{ color: #999; font-size: 1.45rem;}
+.article .share{ margin-top: 20px;}
+.article .share span{ display: block; float: left; font-size: 1.45rem; color: #666; line-height: 30px;}
+.article .share a{ width: 32px; display:block; float: left; margin-left: 10px;}
+.article .share a img{ width: 100%;}
+
+.xg-read,.comment{ margin-top:20px ;}
+.xg-read h3,.comment h3{ font-size: 1.65rem; color: #000;}
+.xg-read dl{ padding: 1rem 0; border-bottom: solid 1px #e0e0e0;}
+.xg-read dl.img-txt dt{ width: 30%;}
+.xg-read dl.img-txt dt img{ width: 100%;}
+.xg-read dl.img-txt dd{ width: 67%;}
+.xg-read dl a{ font-size: 1.45rem; line-height: 24px ; color: #000;}
+.comment .pl-txt{ margin-top:10px ;}
+.comment .pl-txt textarea{ width: 100%; height:8rem; border: solid 1px #e0e0e0; border-radius: 5px; padding: 6px; color: #999; font-family: '微软雅黑'; font-size: 1.45rem;}
+.comment .pl-txt a{ display: block; float: right; margin-top: 6px; border-radius: 5px; border: solid 1px #ff4d4d; color: #ff4d4d; font-size: 1.45rem; width: 20%; height: 30px; text-align: center; line-height: 30px;}
+
+.pl-hf{ padding: 1rem 0;}
+.pl-hf dt{ width: 12%; float: left;}
+.pl-hf dt img{ width: 46px; height: 46px; border-radius: 50%;}
+.pl-hf dd{ width: 85%; float: right; border-bottom: solid 1px #e0e0e0; padding-bottom:1.25rem;}
+.pl-hf dd .tit{font-size: 1.45rem;}
+.pl-hf dd .tit em{ color: #993333; }
+.pl-hf dd .tit i{ color: #999; margin-left: 8px;}
+.pl-hf dd .pl-con{ font-size: 1.45rem; line-height: 24px; margin-top: 8px;}
+.pl-hf dd .zan-box{ margin-top: 8px;}
+.pl-hf dd .zan-box a{ color: #999; font-size: 1.45rem;}
+.pl-hf dd .zan-box a.zan{ background: url(../images/zan.jpg) left center no-repeat; background-size:55% 72% ; padding-left: 20px;}
+.pl-hf dd .zan-box a.hf{ background: url(../images/hf.jpg) left center no-repeat; background-size:32% 84% ; padding-left: 18px; margin-left: 10px;}
+.hf-form{ display: none; border: solid 1px #e0e0e0; width: 100%; margin-top: 8px; border-radius: 5px;  padding-bottom: 8px;}
+.hf-form textarea{ width: 100%; padding: 8px; height: 5rem; border: none; border-bottom: solid 1px #e0e0e0; color: #999; font-family: '微软雅黑'; }
+.hf-form .btn{ background: #fff; float: right; margin-top: 6px; border-radius: 5px; border: solid 1px #ff4d4d; margin-right: 5px; color: #ff4d4d; font-size: 1.25rem; width: 16%; height:26px; text-align: center; line-height: 26px;}
+
+.article .name-tx{ margin-bottom: 8px;}
+.article .name-tx a img{ display: block; float: left; width: 40px; height: 40px; border-radius: 50%;}
+.article .name-tx a span{ color: #000; font-size: 1.75rem; display:block; float: left; line-height: 40px; margin-left: 6px;}
+.article .nametime i{ display: inline-block; padding: 4px 6px; border-radius: 5px; background: #ccc; font-size: 1rem; color: #fff;}
+.comment h3.tit{ border-bottom: solid 1px #e0e0e0; padding-bottom: 10px;}
+.comment h3 a{ float: right; font-size: 0.75rem; color: #999; font-weight: normal; border-radius: 5px; padding:4px 8px; border: solid 1px #e5e5e5; margin-left: 5px;}
+.pl-hf dd .tit b{ float: right; font-weight: normal; color: #999; font-size: 1.45rem;}
+
+a.look-more{ display: block; margin-top: 8px; color: #999; font-size: 1.45rem; margin-left: 16%;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*6p*/
+@media screen and (min-width: 400px) and (max-width: 500px) {
+
+}
+
+/*6*/
+@media screen and (min-width: 330px) and (max-width: 375px) {
+
+}
+
+/*4 5*/
+@media screen and (min-width: 300px) and (max-width: 320px) {
+	.header{ padding: 5px 0;}
+	.header h1 img{ width: 24%;}
+	.header h1 a span{ line-height: 43px;}
+	.header > a{ width: 26%; height: 34px; font-size: 1.25rem; line-height: 34px;}
+	.pl-hf dd{ width:82%}
+	.xg-read dl a{ font-size: 1.25rem;}
+	.pl-hf dt{ width:16% ;}
+}

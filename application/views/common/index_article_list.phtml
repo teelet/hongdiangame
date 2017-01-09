@@ -6,12 +6,16 @@ if(is_array($list) && !empty($list)){
                 ?>
                 <div class="box3 tpl_morepic needShow">
                     <h3><a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a></h3>
-                    <div class="h144 clearfix smallPic">
+                    <?php
+                        $dataImg = json_encode($article['images']);
+                    ?>
+                    <div class="h144 clearfix smallPic" data-img='<?=$dataImg?>' data-pics="morepic">
                         <?php foreach ($article['images'] as $image) { ?>
-                            <a href="javascript:;"><img src="<?=$image['z_image']?>" /></a>
+                            <a href="javascript:;"><img src="<?=$image['z_image']?>"/></a>
                         <?php } ?>
                     </div>
 
+                <!--
                     <div id="slider">
                         <div class="slider_box">
                             <ul class="silder_con">
@@ -27,6 +31,7 @@ if(is_array($list) && !empty($list)){
                         </div>
                         <div class="silderBox"></div>
                     </div>
+                -->
 
                     <div class="box3-b">
                         <?=($article['is_top'] ? '<a href="javascript:;" class="zhiding"><b></b>置顶</a>' : '')?>
@@ -42,10 +47,11 @@ if(is_array($list) && !empty($list)){
                 ?>
                 <div class="box2 tpl_onepic needShow">
                     <dl class="clearfix">
-                        <dt class="smallPic">
+                        <dt class="smallPic" data-img="<?=$article['images'][0]['z_image']?>" data-pics="onepic">
                             <a href="javascript:;"><img src="<?=$article['images'][0]['z_image']?>" /></a>
                         </dt>
 
+                    <!--
                         <div id="slider">
                             <div class="slider_box">
                                 <ul class="silder_con">
@@ -57,6 +63,7 @@ if(is_array($list) && !empty($list)){
                             </div>
                             <div class="silderBox"></div>
                         </div>
+                    -->
 
                         <dd>
                             <a href="/article/index?aid=<?=$article['aid']?>" target="_blank"><?=htmlspecialchars($article['title'])?></a>

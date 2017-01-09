@@ -28,7 +28,8 @@ if($blog_list):
                 <!--card 样式 begin-->
                 <div class="needShow">
                 <?php if ($blog['i_show_tpl'] == 'tpl_morepic'):?><!--多图-->
-                        <div class="img-list clearfix smallPic">
+                        <?php $dataImg = json_encode($blog['images'])?>
+                        <div class="img-list clearfix smallPic" data-img='<?=$dataImg?>' data-pics="morepic" data-style="blogcard">
                             <?php
                                 $count = count($blog['images']);
                                 $i = 0;
@@ -55,6 +56,7 @@ if($blog_list):
                                 endforeach;
                             ?>
                         </div>
+                    <!--
                         <div id="slider">
                             <div class="slider_box">
                                 <ul class="silder_con">
@@ -78,13 +80,15 @@ if($blog_list):
                             </div>
                             <div class="silderBox"></div>
                         </div>
+                     -->
 
                 <?php elseif($blog['i_show_tpl'] == 'tpl_onepic'): ?><!--单图-->
-                        <div class="img-list clearfix smallPic">
+                        <div class="img-list clearfix smallPic" data-img="<?=$blog['images'][0]?>" data-pics="one">
                             <a href="javascript:;">
                                 <img src="<?=$blog['images'][0]?>" />
                             </a>
                         </div>
+                    <!--
                         <div id="slider">
                             <div class="slider_box">
                                 <ul class="silder_con">
@@ -96,6 +100,7 @@ if($blog_list):
                             </div>
                             <div class="silderBox"></div>
                         </div>
+                     -->
                 <?php elseif($blog['i_show_tpl'] == 'tpl_nopic'): ?><!--无图-->
                 <?php elseif($blog['i_show_tpl'] == 'tpl_video'): ?><!--视频-->
                         <div class="img-list clearfix">

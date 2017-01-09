@@ -99,7 +99,7 @@ return array(
     //获取文章评论和回帖的回复列表
     'comment_reply_list' => ['api'=>'/comment/list_reply.json', 'method'=>'post', 'mustpar'=>'cid'],
     //未读消息数
-    'msg_unread_num' =>  ['api'=>'/msg/msg/unread_num.json', 'method'=>'post/get', 'mustpar'=>'uid', 'needsct'=>true],
+    'msg_unread_num' =>  ['api'=>'/msg/unread_num.json', 'method'=>'post/get', 'mustpar'=>'uid', 'needsct'=>true],
     //个人消息列表
     'get_user_msg' =>  ['api'=>'/msg/web/list.json', 'method'=>'get', 'mustpar'=>'uid,type', 'needsct'=>true],
     //删除个人消息

@@ -679,6 +679,7 @@ $(function () {
                         $('#content3').val('');
                         $('.cpic em').html('');
                         $('.post_blog_comment').val('发表');
+                        location.href = location.href;
                     }, 2000);
                 }else{
                     popup('网络故障,请重试~');
